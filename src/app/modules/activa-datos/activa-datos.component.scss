@@ -1,0 +1,135 @@
+#activa-datos-viaje {
+  background: #f9f9f9;
+  padding: 50px 20px;
+  border-radius: 15px;
+}
+
+.icon-container {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.icon-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.selected {
+  border: 2px solid #1976d2;
+  box-shadow: 0px 0px 12px rgba(25, 118, 210, 0.4);
+}
+
+mat-card {
+  border-radius: 12px;
+}
+
+mat-card h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+#instrucciones {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Animación base */
+.fade-in {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Nueva animación más suave y lateral */
+.fade-slide-in {
+  animation: fadeSlideIn 0.5s ease;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Editor de Quill estilizado */
+::ng-deep quill-editor {
+  background-color: white;
+  border-radius: 6px;
+  border: 1px solid #ced4da;
+  padding: 10px;
+  display: block;
+
+  .ql-toolbar.ql-snow {
+    border-radius: 6px 6px 0 0;
+    border: 1px solid #ced4da;
+  }
+
+  .ql-container.ql-snow {
+    border: 1px solid #ced4da;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    min-height: 200px;
+    background-color: #fff;
+  }
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  mat-grid-list {
+    grid-template-columns: 1fr !important;
+  }
+
+  mat-grid-tile {
+    width: 100%;
+    display: block;
+  }
+
+  .icon-container {
+    width: 100%;
+  }
+
+  #instrucciones .row > div {
+    text-align: center;
+  }
+
+  form .col-md-6 {
+    width: 100%;
+  }
+
+  form .col-12 {
+    width: 100%;
+  }
+
+  form {
+    padding: 0 10px;
+  }
+}
+
+#editor {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 1rem;
+  min-height: 200px;
+}

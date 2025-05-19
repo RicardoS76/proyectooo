@@ -1,0 +1,52 @@
+section {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.card {
+  border-radius: 10px;
+  transition: box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #004080;
+  }
+
+  .card-text {
+    font-size: 0.95rem;
+    color: #333;
+  }
+
+  .text-muted {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    display: block;
+  }
+
+  .btn {
+    font-size: 0.85rem;
+  }
+
+  .mat-icon {
+    vertical-align: middle;
+    margin-right: 6px;
+  }
+}
+
+.alert {
+  margin-top: 2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #004080;
+}
+
+h2 {
+  color: #0d47a1;
+  font-weight: 600;
+}

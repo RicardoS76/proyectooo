@@ -1,0 +1,150 @@
+.seccion-carrusel {
+  padding: 2rem 1rem;
+  background-color: #fffefc;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.04);
+  max-width: 1200px;
+  margin: auto;
+}
+
+.carrusel-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+
+  h2 {
+    font-size: 1.6rem;
+    color: #0d47a1;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  mat-icon {
+    color: #1976d2;
+    font-size: 24px;
+  }
+}
+
+.carrusel-card {
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  img.card-img-top {
+    height: 120px;
+    object-fit: contain;
+    padding: 0.5rem;
+    background-color: #f9f9f9;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .card-body {
+    padding: 0.75rem 1rem;
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #0d47a1;
+      margin-bottom: 0.3rem;
+    }
+
+    .card-text {
+      font-size: 0.85rem;
+      color: #555;
+      line-height: 1.4;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .carrusel-card img.card-img-top {
+    height: 100px;
+  }
+
+  .carrusel-header h2 {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+}
+
+/* ===== Modal estilizado ===== */
+.custom-modal {
+  border-radius: 12px;
+  overflow: hidden;
+
+  .modal-header {
+    background-color: #e3f2fd;
+    border-bottom: 1px solid #ccc;
+
+    .modal-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #0d47a1;
+      display: flex;
+      align-items: center;
+    }
+
+    .btn-close {
+      background-color: #ccc;
+      border-radius: 50%;
+      padding: 0.25rem;
+    }
+  }
+
+  .modal-body {
+    padding: 1.5rem;
+
+    .img-container {
+      text-align: center;
+
+      img {
+        max-height: 300px;
+        object-fit: contain;
+        border-radius: 10px;
+        background-color: #fafafa;
+        padding: 0.5rem;
+      }
+    }
+
+    .descripcion-texto {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #333;
+      text-align: center;
+      margin-top: 1rem;
+    }
+  }
+
+  .modal-footer {
+    border-top: 1px solid #eee;
+    padding: 1rem 1.5rem;
+    justify-content: center;
+  }
+}
+
+.modal-footer .cerrar-btn {
+  background-color: #1976d2;
+  border: none;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 0.5rem 1.5rem;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #155cb0;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.3);
+  }
+}

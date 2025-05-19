@@ -1,0 +1,259 @@
+<div class="layout-wrapper">
+
+  <!-- 🔵 Navbar + Sidebar, solo si NO estamos en /404 -->
+  <ng-container *ngIf="!shouldHideNavbar()">
+ <nav class="navbar fixed-top px-4 d-flex justify-content-between align-items-center shadow-sm" style="height: 64px;">
+
+  <!-- Izquierda -->
+  <div class="d-flex align-items-center">
+    <a class="sitio-viajero-brand" [routerLink]="'/principal'">
+      Sitio Viajero Internacional
+    </a>
+  </div>
+
+  <!-- Centro: Rol y NC centrados verticalmente -->
+  <div class="d-flex align-items-center justify-content-center">
+    <div class="text-white fw-semibold fs-5 d-flex flex-column align-items-center text-center">
+      <div>{{ rolUsuario }}</div>
+      <small class="fw-normal">{{ numeroControl }}</small>
+    </div>
+  </div>
+
+  <!-- Derecha -->
+  <div class="d-flex align-items-center">
+    <img src="assets/sd-web/images/logo.png" alt="Telcel" style="height: 40px;">
+  </div>
+
+</nav>
+
+
+    <!-- Cuerpo principal -->
+    <div class="layout-body">
+      <!-- Sidebar -->
+      <aside class="sidebar-gradient sidebar-fixed d-flex flex-column"
+        [ngClass]="{ 'sidebar-collapsed': isCollapsed, 'sidebar-expanded': !isCollapsed }">
+        <div class="sidebar-scroll flex-grow-1">
+          <ul class="list-unstyled fs-5">
+            <li class="sidebar-item d-flex align-items-center mb-3" (click)="toggleSidebar()"
+              title="Menú Sitio Roaming">
+              <span class="material-icons me-2 rotate-icon" [ngClass]="{ 'rotated': isCollapsed }">menu</span>
+              <span class="sidebar-text">Menú Sitio Roaming</span>
+            </li>
+            <li class="sidebar-item d-flex align-items-center mb-3" title="Inicio" [routerLink]="'/principal'"
+              routerLinkActive="active-link">
+              <span class="material-icons me-2">home</span>
+              <span class="sidebar-text">Inicio</span>
+            </li>
+
+            <li *ngIf="rolUsuario === 'corporativo' || rolUsuario === 'masivo'"
+              class="sidebar-item d-flex align-items-center mb-3" title="Notificaciones"
+              [routerLink]="'/notificaciones'" routerLinkActive="active-link">
+              <span class="material-icons me-2">notifications</span>
+              <span class="sidebar-text">Notificaciones</span>
+            </li>
+
+            <li *ngIf="rolUsuario === 'superAdmin' || rolUsuario === 'admin'"
+              class="sidebar-item d-flex align-items-center mb-3" [routerLink]="'/notificaciones/admin'"
+              routerLinkActive="active-link" title="Administrar Notificaciones">
+              <span class="material-icons me-2">manage_accounts</span>
+              <span class="sidebar-text">Notificaciones Admin</span>
+            </li>
+
+            <li class="sidebar-item d-flex align-items-center mb-3" title="Activa tus datos estando de viaje"
+              [routerLink]="'/activa-datos'" routerLinkActive="active-link">
+              <span class="material-icons me-2">wifi</span>
+              <span class="sidebar-text">Activa tus datos estando de viaje</span>
+            </li>
+
+            <li class="sidebar-item d-flex align-items-center mb-3" title="Paquetes y Tarifas"
+              (click)="toggleTarifasSubmenu = !toggleTarifasSubmenu">
+              <span class="material-icons me-2">local_offer</span>
+              <span class="sidebar-text">Paquetes y Tarifas</span>
+              <span class="material-icons ms-auto" style="font-size: 16px;">
+                {{ toggleTarifasSubmenu ? 'expand_less' : 'expand_more' }}
+              </span>
+            </li>
+
+            <ul *ngIf="toggleTarifasSubmenu" class="list-unstyled ms-3 mb-3">
+
+              <!-- 🔵 CORPORATIVO -->
+              <ng-container
+                *ngIf="rolUsuario === 'corporativo' || rolUsuario === 'admin' || rolUsuario === 'superAdmin'">
+                <li class="sidebar-item d-flex align-items-center mb-1 submenu-nivel-1"
+                  [routerLink]="'/paquetes-tarifas/sms'" routerLinkActive="active-link">
+                  <span class="material-icons me-2">sms</span>
+                  <span class="sidebar-text">SMS Corporativo</span>
+                </li>
+                <li class="sidebar-item d-flex align-items-center mb-1 submenu-nivel-1"
+                  [routerLink]="'/paquetes-tarifas/voz-corp'" routerLinkActive="active-link">
+                  <span class="material-icons me-2">call</span>
+                  <span class="sidebar-text">VOZ Corporativo</span>
+                </li>
+                <li class="sidebar-item d-flex align-items-center mb-1 submenu-nivel-1"
+                  [routerLink]="'/paquetes-tarifas/datos-corp'" routerLinkActive="active-link">
+                  <span class="material-icons me-2">data_usage</span>
+                  <span class="sidebar-text">Datos Corporativo</span>
+                </li>
+                <li class="sidebar-item d-flex align-items-center mb-1 submenu-nivel-1"
+                  [routerLink]="'/paquetes-tarifas/maritimo-aereo'" routerLinkActive="active-link">
+                  <span class="material-icons me-2">flight_takeoff</span>
+                  <span class="sidebar-text">Marítimo y Aéreo</span>
+                </li>
+              </ng-container>
+
+              <!-- 🟣 MASIVO -->
+              <ng-container *ngIf="rolUsuario === 'masivo' || rolUsuario === 'admin' || rolUsuario === 'superAdmin'">
+                <li class="sidebar-item d-flex align-items-center mb-1 submenu-nivel-1"
+                  [routerLink]="'/paquetes-tarifas/sms-masivo'" routerLinkActive="active-link">
+                  <span class="material-icons me-2">sms</span>
+                  <span class="sidebar-text">SMS Masivo</span>
+                </li>
+                <li class="sidebar-item d-flex align-items-center mb-1 submenu-nivel-1"
+                  [routerLink]="'/paquetes-tarifas/datos-masivo'" routerLinkActive="active-link">
+                  <span class="material-icons me-2">signal_cellular_alt</span>
+                  <span class="sidebar-text">Datos Masivo</span>
+                </li>
+                <li class="sidebar-item d-flex align-items-center mb-1 submenu-nivel-1"
+                  [routerLink]="'/paquetes-tarifas/voz-masivo'" routerLinkActive="active-link">
+                  <span class="material-icons me-2">call</span>
+                  <span class="sidebar-text">VOZ Masivo</span>
+                </li>
+              </ng-container>
+
+              <!-- 🔧 ADMINISTRACIÓN -->
+              <ng-container *ngIf="rolUsuario === 'superAdmin'">
+                <li class="sidebar-item d-flex align-items-center mb-1 submenu-nivel-1"
+                  [routerLink]="'/paquetes-tarifas/admin'" routerLinkActive="active-link">
+                  <span class="material-icons me-2">folder_shared</span>
+                  <span class="sidebar-text">Gestión de Paquetes</span>
+                </li>
+              </ng-container>
+
+            </ul>
+
+            <li class="sidebar-item d-flex align-items-center mb-3" title="Tarifas a Granel"
+              [routerLink]="'/tarifas-granel'">
+              <span class="material-icons me-2">receipt</span>
+              <span class="sidebar-text">Tarifas a Granel</span>
+            </li>
+            <!-- 🔧 SUBMENÚ: Tarifas a Granel Admin -->
+            <ng-container *ngIf="rolUsuario === 'superAdmin'">
+              <ul class="list-unstyled ms-4 mb-3">
+                <li class="sidebar-item d-flex align-items-center mb-2" [routerLink]="'/tarifas-granel/admin'"
+                  routerLinkActive="active-link" title="Gestión Tarifas a Granel">
+                  <span class="material-icons me-2">folder_special</span>
+                  <span class="sidebar-text">Gestión Tarifas Granel</span>
+                </li>
+
+              </ul>
+            </ng-container>
+
+            <li class="sidebar-item d-flex align-items-center mb-3" title="Cobertura">
+              <a href="https://www.telcel.com/personas/roaming/cobertura#" target="_blank" rel="noopener"
+                class="d-flex align-items-center text-decoration-none text-reset w-100">
+                <span class="material-icons me-2">public</span>
+                <span class="sidebar-text">Cobertura</span>
+              </a>
+            </li>
+            <li *ngIf="rolUsuario === 'superAdmin' || rolUsuario === 'admin'"
+              class="sidebar-item d-flex align-items-center mb-3" [routerLink]="['/admin/consideraciones']"
+              routerLinkActive="active" title="Consideraciones RI (Admin)">
+              <span class="material-icons me-2">manage_search</span>
+              <span class="sidebar-text">Consideraciones Admin</span>
+            </li>
+
+            <li class="sidebar-item d-flex align-items-center mb-3" title="Sabías Qué" routerLink="/sabias-que"
+              routerLinkActive="active">
+              <span class="material-icons me-2">info</span>
+              <span class="sidebar-text">Sabías Qué</span>
+            </li>
+
+            <a href="https://www.telcel.com/personas/roaming/estoy-en-el-extranjero-preguntas" target="_blank"
+              rel="noopener noreferrer" class="text-decoration-none text-reset">
+              <li class="sidebar-item d-flex align-items-center mb-3" title="Preguntas Frecuentes">
+                <span class="material-icons me-2">help</span>
+                <span class="sidebar-text">Preguntas Frecuentes</span>
+              </li>
+            </a>
+            <!-- 🔐 Gestión de Permisos (solo superAdmin) -->
+            <li *ngIf="rolUsuario === 'superAdmin'" class="sidebar-item d-flex align-items-center mb-3"
+              title="Gestión de Usuarios" [routerLink]="['/admin/permisos']" routerLinkActive="active-link">
+              <span class="material-icons me-2">admin_panel_settings</span>
+              <span class="sidebar-text">Gestión de Permisos</span>
+            </li>
+
+            <!-- 📁 Gerencia Admón. RI - Carga/Descarga de Archivos -->
+            <li *ngIf="['superAdmin', 'auditor', 'cce', 'cci'].includes(rolUsuario)"
+              class="sidebar-item d-flex align-items-center mb-3" title="Roaming Internacional - Admón"
+              [routerLink]="['/gerencia-admin-ri']" routerLinkActive="active-link">
+              <span class="material-icons me-2">folder_shared</span>
+              <span class="sidebar-text">Gerencia Admón. RI</span>
+            </li>
+
+<!-- 🔗 Gestión de Enlaces (solo superAdmin) -->
+<li *ngIf="rolUsuario === 'superAdmin'" class="sidebar-item d-flex align-items-center mb-3"
+  title="Gestión de Enlaces Externos" [routerLink]="'/admin/enlaces'" routerLinkActive="active-link">
+  <span class="material-icons me-2">link</span>
+  <span class="sidebar-text">Gestión de Enlaces</span>
+</li>
+
+          </ul>
+        </div>
+
+        <div class="sidebar-logout-fixed">
+          <button class="btn-cerrar-sesion w-100 d-flex align-items-center justify-content-center"
+            (click)="abrirModal()">
+            <span class="material-icons me-2">power_settings_new</span>
+            <span class="sidebar-text">Cerrar Sesión</span>
+          </button>
+        </div>
+      </aside>
+    </div>
+  </ng-container>
+
+  <!-- Contenido principal -->
+  <div class="layout-content" [ngClass]="{ 'layout-collapsed': isCollapsed, 'layout-expanded': !isCollapsed }">
+
+    <div class="content-area">
+      <router-outlet></router-outlet>
+    </div>
+
+    <!-- Footer solo si no es /404 -->
+    <footer class="footer-bar text-white" *ngIf="!shouldHideNavbar()">
+      <div class="footer-links">
+        <a href="https://www.telcel.com/personas/roaming/paquetes-y-precios" target="_blank"
+          class="text-white text-decoration-none hover-link">Telcel.com/Viajero</a>
+        <span class="separator">|</span>
+        <a href="https://www.telcel.com/personas/la-red-de-mayor-cobertura/red-tecnologia/4g/volte" target="_blank"
+          class="text-white text-decoration-none hover-link">VoLTE</a>
+        <span class="separator">|</span>
+        <a href="http://serviciotecnico/r9/index.asp" target="_blank"
+          class="text-white text-decoration-none hover-link">SERTEC</a>
+        <span class="separator">|</span>
+        <a href="https://www.telcel.com/personas/roaming/paquetes-y-precios" target="_blank"
+          class="text-white text-decoration-none hover-link">Guía Viajero</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Modal solo si hay navbar -->
+  <div *ngIf="!shouldHideNavbar()" #cerrarSesionModalRef class="modal fade" id="cerrarSesionModal" tabindex="-1"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-center custom-modal-content">
+        <div class="modal-header border-0">
+          <h5 class="modal-title w-100">¿Cerrar Sesión?</h5>
+        </div>
+        <div class="modal-body">
+          <span class="material-icons text-warning mb-3" style="font-size: 3rem;">warning</span><br>
+          ¿Estás seguro de que deseas cerrar tu sesión?
+        </div>
+        <div class="modal-footer border-0 justify-content-center">
+          <button type="button" class="btn btn-outline-primary" (click)="cerrarModal()">Cancelar</button>
+          <button type="button" class="btn btn-danger" (click)="cerrarSesion()">Cerrar Sesión</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

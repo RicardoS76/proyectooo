@@ -1,0 +1,172 @@
+<div class="tarifas-header-simple">
+  <h1>Tarifas a Granel</h1>
+  <p>Consulta las tarifas disponibles para cada tipo de servicio.</p>
+</div>
+
+<mat-tab-group class="tarifas-tabs">
+
+  <!-- TAB: Datos -->
+  <mat-tab label="Datos">
+    <h2>Tarifas a Granel – Datos</h2>
+
+    <table mat-table [dataSource]="datos" class="mat-elevation-z8 full-width" *ngIf="datos.data.length > 0">
+
+      <ng-container matColumnDef="titulo">
+        <th mat-header-cell *matHeaderCellDef>Título</th>
+        <td mat-cell *matCellDef="let doc">{{ doc.titulo }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="descripcion">
+        <th mat-header-cell *matHeaderCellDef>Descripción</th>
+        <td mat-cell *matCellDef="let doc">{{ doc.descripcion }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="fecha">
+        <th mat-header-cell *matHeaderCellDef>Fecha</th>
+        <td mat-cell *matCellDef="let doc">{{ doc.fecha }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let doc">
+          <div class="acciones-botones">
+
+            <a mat-button color="accent" [href]="doc.archivo" download>
+              <mat-icon>download</mat-icon> Descargar
+            </a>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+    </table>
+
+    <mat-paginator #datosPaginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    <div *ngIf="datos.data.length === 0" class="no-data-message">📄 No hay documentos disponibles para Datos.</div>
+  </mat-tab>
+
+  <!-- TAB: Voz -->
+  <mat-tab label="Voz">
+    <h2>Tarifas a Granel – Voz</h2>
+
+    <table mat-table [dataSource]="voz" class="mat-elevation-z8 full-width" *ngIf="voz.data.length > 0">
+
+      <ng-container matColumnDef="titulo">
+        <th mat-header-cell *matHeaderCellDef>Título</th>
+        <td mat-cell *matCellDef="let doc">{{ doc.titulo }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="descripcion">
+        <th mat-header-cell *matHeaderCellDef>Descripción</th>
+        <td mat-cell *matCellDef="let doc">{{ doc.descripcion }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="fecha">
+        <th mat-header-cell *matHeaderCellDef>Fecha</th>
+        <td mat-cell *matCellDef="let doc">{{ doc.fecha }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let doc">
+          <div class="acciones-botones">
+
+            <a mat-button color="accent" [href]="doc.archivo" download>
+              <mat-icon>download</mat-icon> Descargar
+            </a>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+    </table>
+
+    <mat-paginator #vozPaginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    <div *ngIf="voz.data.length === 0" class="no-data-message">📄 No hay documentos disponibles para Voz.</div>
+  </mat-tab>
+
+  <!-- TAB: SMS -->
+  <mat-tab label="SMS">
+    <h2>Tarifas a Granel – SMS</h2>
+
+    <table mat-table [dataSource]="sms" class="mat-elevation-z8 full-width" *ngIf="sms.data.length > 0">
+
+      <ng-container matColumnDef="titulo">
+        <th mat-header-cell *matHeaderCellDef>Título</th>
+        <td mat-cell *matCellDef="let doc">{{ doc.titulo }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="descripcion">
+        <th mat-header-cell *matHeaderCellDef>Descripción</th>
+        <td mat-cell *matCellDef="let doc">{{ doc.descripcion }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="fecha">
+        <th mat-header-cell *matHeaderCellDef>Fecha</th>
+        <td mat-cell *matCellDef="let doc">{{ doc.fecha }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let doc">
+          <div class="acciones-botones">
+
+            <a mat-button color="accent" [href]="doc.archivo" download>
+              <mat-icon>download</mat-icon> Descargar
+            </a>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+    </table>
+
+    <mat-paginator #smsPaginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    <div *ngIf="sms.data.length === 0" class="no-data-message">📄 No hay documentos disponibles para SMS.</div>
+  </mat-tab>
+
+  <!-- TAB: Marítimo -->
+  <mat-tab label="Marítimo">
+    <h2>Tarifas a Granel – Marítimo y Aéreo</h2>
+
+    <table mat-table [dataSource]="maritimo" class="mat-elevation-z8 full-width" *ngIf="maritimo.data.length > 0">
+
+      <ng-container matColumnDef="titulo">
+        <th mat-header-cell *matHeaderCellDef>Título</th>
+        <td mat-cell *matCellDef="let doc">{{ doc.titulo }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="descripcion">
+        <th mat-header-cell *matHeaderCellDef>Descripción</th>
+        <td mat-cell *matCellDef="let doc">{{ doc.descripcion }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="fecha">
+        <th mat-header-cell *matHeaderCellDef>Fecha</th>
+        <td mat-cell *matCellDef="let doc">{{ doc.fecha }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let doc">
+          <div class="acciones-botones">
+
+            <a mat-button color="accent" [href]="doc.archivo" download>
+              <mat-icon>download</mat-icon> Descargar
+            </a>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+    </table>
+
+    <mat-paginator #maritimoPaginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    <div *ngIf="maritimo.data.length === 0" class="no-data-message">📄 No hay documentos disponibles para Marítimo.</div>
+  </mat-tab>
+
+</mat-tab-group>

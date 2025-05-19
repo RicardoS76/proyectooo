@@ -1,0 +1,78 @@
+<section class="container mt-5 mb-5">
+  <h2 class="text-center mb-4">Paquetes y Tarifas</h2>
+  <p class="text-center mb-4">Consulta los documentos con las tarifas vigentes para Roaming Internacional.</p>
+
+  <!-- SMS -->
+  <div *ngIf="documentosSMS.length > 0" class="mb-5">
+    <h4>SMS</h4>
+    <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let doc of documentosSMS">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body d-flex flex-column justify-content-between">
+            <h5 class="card-title">{{ doc.titulo }}</h5>
+            <p class="card-text">{{ doc.descripcion }}</p>
+            <a [href]="doc.archivo" class="btn btn-primary mt-3 w-100" download>
+              <mat-icon class="me-1">download</mat-icon> Descargar
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DATOS -->
+  <div *ngIf="documentosDatos.length > 0" class="mb-5">
+    <h4>Datos</h4>
+    <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let doc of documentosDatos">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body d-flex flex-column justify-content-between">
+            <h5 class="card-title">{{ doc.titulo }}</h5>
+            <p class="card-text">{{ doc.descripcion }}</p>
+            <small *ngIf="doc.subcategoria" class="text-muted">Subcategoría: {{ doc.subcategoria | titlecase }}</small>
+            <a [href]="doc.archivo" class="btn btn-primary mt-3 w-100" download>
+              <mat-icon class="me-1">download</mat-icon> Descargar
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOZ -->
+  <div *ngIf="documentosVoz.length > 0" class="mb-5">
+    <h4>Voz</h4>
+    <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let doc of documentosVoz">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body d-flex flex-column justify-content-between">
+            <h5 class="card-title">{{ doc.titulo }}</h5>
+            <p class="card-text">{{ doc.descripcion }}</p>
+            <small *ngIf="doc.subcategoria" class="text-muted">Subcategoría: {{ doc.subcategoria | titlecase }}</small>
+            <a [href]="doc.archivo" class="btn btn-primary mt-3 w-100" download>
+              <mat-icon class="me-1">download</mat-icon> Descargar
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARÍTIMO Y AÉREO -->
+  <div *ngIf="documentosOtros.length > 0" class="mb-5">
+    <h4>Marítimo y Aéreo</h4>
+    <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let doc of documentosOtros">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body d-flex flex-column justify-content-between">
+            <h5 class="card-title">{{ doc.titulo }}</h5>
+            <p class="card-text">{{ doc.descripcion }}</p>
+            <a [href]="doc.archivo" class="btn btn-primary mt-3 w-100" download>
+              <mat-icon class="me-1">download</mat-icon> Descargar
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

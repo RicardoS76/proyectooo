@@ -1,0 +1,186 @@
+<!-- Alerta de éxito/error -->
+<div *ngIf="alerta" @fadeInOut class="alert fixed-alert"
+     [ngClass]="{
+       'alert-success': alerta.tipo === 'success',
+       'alert-danger': alerta.tipo === 'error'
+     }" role="alert">
+  {{ alerta.mensaje }}
+</div>
+
+<!-- Fondo oscuro de confirmación -->
+<div *ngIf="confirmacionVisible" class="backdrop"></div>
+
+<!-- Tarjeta de confirmación para eliminar -->
+<div *ngIf="confirmacionVisible" @fadeInOut class="confirm-card">
+  <div class="confirm-text">¿Deseas eliminar esta notificación?</div>
+  <div class="confirm-buttons">
+    <button class="btn btn-danger btn-sm me-2" (click)="confirmarEliminacion()">Sí, eliminar</button>
+    <button class="btn btn-outline-secondary btn-sm" (click)="cancelarEliminacion()">Cancelar</button>
+  </div>
+</div>
+
+<!-- Formulario de nueva notificación (solo visible para superAdmin) -->
+<section class="admin-form" *ngIf="rolUsuario === 'superAdmin'">
+
+  <!-- Banner de edición -->
+  <div *ngIf="modoEdicion" @fadeInOut class="editar-banner">
+    <span class="editar-texto">
+      ✏️ Editando notificación: <strong>{{ nuevaNotificacion.nombre }}</strong>
+    </span>
+    <button type="button" class="btn btn-outline-primary btn-sm cancelar-edicion-btn" (click)="cancelarEdicion()">
+      Cancelar edición
+    </button>
+  </div>
+
+  <h2>Subir Nueva Notificación</h2>
+
+  <!-- Fila: Nombre + Perfil -->
+  <div class="form-row-horizontal">
+    <mat-form-field appearance="fill" class="half-width">
+      <mat-label>Nombre</mat-label>
+      <input matInput [(ngModel)]="nuevaNotificacion.nombre">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="half-width">
+      <mat-label>Perfil</mat-label>
+      <mat-select [(ngModel)]="nuevaNotificacion.perfil">
+        <mat-option value="corporativo">Corporativo</mat-option>
+        <mat-option value="masivo">Masivo</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- Fila: Descripción -->
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Descripción</mat-label>
+    <textarea matInput rows="3" [(ngModel)]="nuevaNotificacion.descripcion"></textarea>
+  </mat-form-field>
+
+  <!-- Botón para subir archivo con ícono -->
+  <div class="mb-3">
+    <button mat-stroked-button color="primary" (click)="fileInput.click()">
+      <mat-icon class="me-1">upload_file</mat-icon>
+      Seleccionar archivo PDF
+    </button>
+    <input #fileInput type="file" (change)="seleccionarArchivo($event)" accept="application/pdf" hidden>
+
+    <div *ngIf="archivoSeleccionado" class="mt-2">
+      📄 Archivo seleccionado: <strong>{{ archivoSeleccionado.name }}</strong>
+    </div>
+  </div>
+
+  <button mat-raised-button color="primary" (click)="agregarOActualizarNotificacion()">
+    {{ modoEdicion ? 'Actualizar Notificación' : 'Agregar Notificación' }}
+  </button>
+</section>
+
+<!-- Tabs de notificaciones -->
+<div class="admin-table mt-5">
+  <h2>Listado de Notificaciones</h2>
+
+  <mat-tab-group>
+    <!-- Tab: Corporativo -->
+    <mat-tab [label]="'Corporativo (' + notificacionesCorporativoDS.data.length + ')'">
+      <table mat-table [dataSource]="notificacionesCorporativoDS" class="mat-elevation-z8 full-width mt-3">
+
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef>Nombre</th>
+          <td mat-cell *matCellDef="let n">{{ n.nombre }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="descripcion">
+          <th mat-header-cell *matHeaderCellDef>Descripción</th>
+          <td mat-cell *matCellDef="let n">{{ n.descripcion }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="fechaPublicacion">
+          <th mat-header-cell *matHeaderCellDef>Fecha</th>
+          <td mat-cell *matCellDef="let n">{{ n.fechaPublicacion | date }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="perfil">
+          <th mat-header-cell *matHeaderCellDef>Perfil</th>
+          <td mat-cell *matCellDef="let n">{{ n.perfil }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let n">
+            <div class="acciones-botones">
+              <a mat-button color="primary" [href]="n.archivoUrl" download>
+                <mat-icon class="me-1">download</mat-icon> Descargar
+              </a>
+              <button mat-button color="accent" (click)="editar(n)" *ngIf="rolUsuario !== 'admin'">
+                <mat-icon class="me-1">edit</mat-icon> Actualizar
+              </button>
+              <button mat-button color="warn" (click)="pedirConfirmacion(n.id)" *ngIf="rolUsuario !== 'admin'">
+                <mat-icon class="me-1">delete</mat-icon> Eliminar
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator #corporativoPaginator
+                     [pageSize]="5"
+                     [pageSizeOptions]="[5, 10, 20]"
+                     showFirstLastButtons>
+      </mat-paginator>
+    </mat-tab>
+
+    <!-- Tab: Masivo -->
+    <mat-tab [label]="'Masivo (' + notificacionesMasivoDS.data.length + ')'">
+      <table mat-table [dataSource]="notificacionesMasivoDS" class="mat-elevation-z8 full-width mt-3">
+
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef>Nombre</th>
+          <td mat-cell *matCellDef="let n">{{ n.nombre }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="descripcion">
+          <th mat-header-cell *matHeaderCellDef>Descripción</th>
+          <td mat-cell *matCellDef="let n">{{ n.descripcion }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="fechaPublicacion">
+          <th mat-header-cell *matHeaderCellDef>Fecha</th>
+          <td mat-cell *matCellDef="let n">{{ n.fechaPublicacion | date }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="perfil">
+          <th mat-header-cell *matHeaderCellDef>Perfil</th>
+          <td mat-cell *matCellDef="let n">{{ n.perfil }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let n">
+            <div class="acciones-botones">
+              <a mat-button color="primary" [href]="n.archivoUrl" download>
+                <mat-icon class="me-1">download</mat-icon> Descargar
+              </a>
+              <button mat-button color="accent" (click)="editar(n)" *ngIf="rolUsuario !== 'admin'">
+                <mat-icon class="me-1">edit</mat-icon> Actualizar
+              </button>
+              <button mat-button color="warn" (click)="pedirConfirmacion(n.id)" *ngIf="rolUsuario !== 'admin'">
+                <mat-icon class="me-1">delete</mat-icon> Eliminar
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator #masivoPaginator
+                     [pageSize]="5"
+                     [pageSizeOptions]="[5, 10, 20]"
+                     showFirstLastButtons>
+      </mat-paginator>
+    </mat-tab>
+  </mat-tab-group>
+</div>

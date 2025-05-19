@@ -1,0 +1,104 @@
+<section class="container mt-5 mb-5">
+
+  <!-- Título e introducción -->
+  <h2 class="text-center mb-4">Activa tus datos estando de viaje</h2>
+  <p class="text-center mb-3">
+    El Roaming de datos es una función de los teléfonos móviles que permite conectarse a una red de datos celulares
+    cuando el usuario se encuentra fuera del área de cobertura de su operador.
+  </p>
+  <p class="text-center mb-5">
+    Selecciona tu sistema operativo y sigue los pasos para activar el servicio de Roaming Internacional.
+  </p>
+
+  <!-- Tarjetas de selección -->
+  <div class="d-flex justify-content-center flex-wrap gap-3 mb-5">
+    <mat-card *ngFor="let sistema of sistemas"
+              class="text-center p-3"
+              [ngClass]="{ 'selected': sistemaSeleccionado?.id === sistema.id }"
+              (click)="seleccionarSistema(sistema.id)"
+              style="width: 160px; cursor: pointer;">
+      <mat-card-content>
+        <img [src]="sistema.imagen"
+             [alt]="sistema.nombre"
+             class="img-fluid mb-2"
+             style="width: 64px;">
+        <h5 class="mt-2">{{ sistema.nombre }}</h5>
+
+        <!-- Botones de edición solo para superAdmin -->
+        <div *ngIf="rolUsuario === 'superAdmin'"
+             class="mt-2 d-flex justify-content-center gap-2"
+             (click)="$event.stopPropagation()">
+          <button mat-icon-button color="primary"
+                  (click)="editarSistema(sistema)"
+                  matTooltip="Editar">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn"
+                  (click)="eliminarSistema(sistema.id)"
+                  matTooltip="Eliminar">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Instrucciones del sistema seleccionado -->
+  <mat-card *ngIf="sistemaSeleccionado as sistema"
+            class="p-4 mb-5"
+            [ngClass]="{ 'fade-slide-in': animar }">
+    <div class="row align-items-center">
+      <!-- Imagen -->
+      <div class="col-md-4 text-center mb-3 mb-md-0">
+        <img *ngIf="sistema.imagen"
+             [src]="sistema.imagen"
+             [alt]="sistema.nombre"
+             class="img-fluid"
+             style="max-width: 100%; max-height: 250px;">
+      </div>
+
+      <!-- Texto HTML -->
+      <div class="col-md-8">
+        <h4 class="mb-3">{{ sistema.nombre }}</h4>
+        <div [innerHTML]="contenidoSeguro"></div>
+      </div>
+    </div>
+  </mat-card>
+
+  <!-- Formulario de alta/edición solo para superAdmin -->
+  <mat-card *ngIf="rolUsuario === 'superAdmin'" class="p-4 mb-5" style="max-width: 700px; margin: auto;">
+    <h4 class="mb-3">{{ editando ? 'Editar sistema' : 'Agregar nuevo sistema operativo' }}</h4>
+
+    <form (ngSubmit)="guardarSistema()" class="row g-3" enctype="multipart/form-data">
+      <!-- Nombre -->
+      <div class="col-12">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Nombre</mat-label>
+          <input matInput [(ngModel)]="nuevoSistema.nombre" name="nombre" required>
+        </mat-form-field>
+      </div>
+
+      <!-- Imagen -->
+      <div class="col-12">
+        <label class="form-label">Imagen</label>
+        <input type="file" accept="image/*" (change)="onImagenSeleccionada($event)" class="form-control">
+        <img *ngIf="imagenTemporal" [src]="imagenTemporal" alt="preview" class="img-fluid mt-2" style="max-height: 100px;">
+      </div>
+
+      <!-- Editor HTML manual (CKEditor via JS) -->
+      <div class="col-12">
+        <label class="form-label fw-bold mb-2">Instrucciones (Editor HTML)</label>
+        <div id="editor" class="w-100" style="min-height: 200px;"></div>
+      </div>
+
+      <!-- Botones -->
+      <div class="col-12 text-end mt-3">
+        <button mat-flat-button color="primary" type="submit">
+          {{ editando ? 'Actualizar' : 'Agregar sistema' }}
+        </button>
+        <button *ngIf="editando" mat-button color="warn" type="button" (click)="cancelarEdicion()">Cancelar</button>
+      </div>
+    </form>
+  </mat-card>
+
+</section>

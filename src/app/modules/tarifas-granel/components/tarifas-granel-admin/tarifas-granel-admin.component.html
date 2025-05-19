@@ -1,0 +1,140 @@
+<!-- Formulario -->
+<div class="admin-form" #formulario>
+  <h2 class="mb-3">
+    {{ modoEdicion ? 'Actualizar Tarifa a Granel' : 'Nueva Tarifa a Granel' }}
+  </h2>
+
+  <!-- Fila: Título + Categoría -->
+  <div class="form-row-horizontal">
+    <mat-form-field appearance="fill" class="half-width">
+      <mat-label>Título</mat-label>
+      <input matInput [(ngModel)]="nuevoDocumento.titulo" name="titulo">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="half-width">
+      <mat-label>Categoría</mat-label>
+      <mat-select [(ngModel)]="nuevoDocumento.categoria" name="categoria">
+        <mat-option value="datos">Datos</mat-option>
+        <mat-option value="voz">Voz</mat-option>
+        <mat-option value="sms">SMS</mat-option>
+        <mat-option value="maritimo">Marítimo y Aéreo</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- Descripción -->
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Descripción</mat-label>
+    <textarea matInput rows="2" [(ngModel)]="nuevoDocumento.descripcion" name="descripcion"></textarea>
+  </mat-form-field>
+
+  <!-- Selector de archivo -->
+  <div class="mb-3">
+    <button mat-stroked-button color="primary" (click)="fileInput.click()">Seleccionar archivo PDF</button>
+    <input #fileInput type="file" (change)="onArchivoSeleccionado($event)" accept="application/pdf" hidden />
+
+    <div *ngIf="archivoSeleccionado" class="mt-2">
+      📄 Archivo seleccionado: <strong>{{ archivoSeleccionado.name }}</strong>
+    </div>
+  </div>
+
+  <!-- Botones acción -->
+  <div class="mt-3">
+    <button mat-raised-button color="primary"
+            (click)="modoEdicion ? actualizarArchivo() : subirArchivo()">
+      <mat-icon class="me-1">{{ modoEdicion ? 'save' : 'cloud_upload' }}</mat-icon>
+      {{ modoEdicion ? 'Actualizar Archivo' : 'Subir Archivo' }}
+    </button>
+
+    <button *ngIf="modoEdicion" mat-button color="warn" class="ms-2" (click)="resetFormulario()">
+      <mat-icon class="me-1">cancel</mat-icon> Cancelar edición
+    </button>
+  </div>
+</div>
+
+<!-- Alerta -->
+<div *ngIf="alerta" class="alert fixed-alert"
+     [ngClass]="{
+       'alert-success': alerta.tipo === 'success',
+       'alert-danger': alerta.tipo === 'error'
+     }" role="alert">
+  {{ alerta.mensaje }}
+</div>
+
+<!-- Confirmación -->
+<div *ngIf="confirmacionVisible" class="backdrop"></div>
+<div *ngIf="confirmacionVisible" class="confirm-card">
+  <div class="confirm-text">¿Deseas eliminar este archivo?</div>
+  <div class="confirm-buttons">
+    <button mat-button color="warn" class="btn-sm me-2" (click)="confirmarEliminacion()">Sí, eliminar</button>
+    <button mat-button class="btn-sm" (click)="cancelarEliminacion()">Cancelar</button>
+  </div>
+</div>
+
+<!-- Tabs por categoría -->
+<mat-tab-group class="tarifas-tabs">
+  <!-- Reutiliza la misma estructura para cada tab -->
+  <mat-tab label="Datos">
+    <h2>Tarifas a Granel – Datos</h2>
+    <ng-container *ngTemplateOutlet="tablaTemplate; context: { data: datosDS }"></ng-container>
+  </mat-tab>
+
+  <mat-tab label="Voz">
+    <h2>Tarifas a Granel – Voz</h2>
+    <ng-container *ngTemplateOutlet="tablaTemplate; context: { data: vozDS }"></ng-container>
+  </mat-tab>
+
+  <mat-tab label="SMS">
+    <h2>Tarifas a Granel – SMS</h2>
+    <ng-container *ngTemplateOutlet="tablaTemplate; context: { data: smsDS }"></ng-container>
+  </mat-tab>
+
+  <mat-tab label="Marítimo">
+    <h2>Tarifas a Granel – Marítimo y Aéreo</h2>
+    <ng-container *ngTemplateOutlet="tablaTemplate; context: { data: maritimoDS }"></ng-container>
+  </mat-tab>
+</mat-tab-group>
+
+<!-- Template reutilizable para tabla -->
+<ng-template #tablaTemplate let-data="data">
+  <table mat-table [dataSource]="data" class="mat-elevation-z8 full-width" *ngIf="data.data.length > 0">
+    <ng-container matColumnDef="titulo">
+      <th mat-header-cell *matHeaderCellDef>Título</th>
+      <td mat-cell *matCellDef="let doc">{{ doc.titulo }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="descripcion">
+      <th mat-header-cell *matHeaderCellDef>Descripción</th>
+      <td mat-cell *matCellDef="let doc">{{ doc.descripcion }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="fecha">
+      <th mat-header-cell *matHeaderCellDef>Fecha</th>
+      <td mat-cell *matCellDef="let doc">{{ doc.fecha }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let doc">
+        <a mat-icon-button [href]="doc.archivo" download matTooltip="Descargar PDF">
+          <mat-icon>download</mat-icon>
+        </a>
+        <button mat-icon-button color="accent" *ngIf="rol === 'superAdmin'" (click)="cargarParaActualizar(doc)" matTooltip="Actualizar">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" *ngIf="rol === 'superAdmin'" (click)="pedirConfirmacion(doc.id)" matTooltip="Eliminar">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+  </table>
+
+  <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+
+  <div *ngIf="data.data.length === 0" class="no-data-message">
+    📄 No hay documentos disponibles en esta categoría.
+  </div>
+</ng-template>

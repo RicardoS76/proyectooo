@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    	<meta name="description" content="">
+    	<meta name="author" content="">
+    	<title>Template - Dashboard</title>
+    	<!-- Bootstrap core CSS -->
+    	<link href="../css/bootstrap.min.css" rel="stylesheet">
+    	<!-- Telcel CSS -->
+    	<link href="../css/telcel.css" rel="stylesheet">
+    	<!-- Dashboard CSS -->
+    	<link href="../css/templates/dashboard.css" rel="stylesheet">
+    	<!-- Font Awesome -->
+    	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <!-- Animaciones -->
+        <link href="../css/animate.css" rel="stylesheet">
+        <!-- Iconos Material Design -->
+        <link href="../css/flaticon.css" rel="stylesheet" type="text/css">
+        <link href="http://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" type="text/css"/>     
+    </head>
+
+    <body>
+
+        <!-- Sidenav Dashboard -->
+        <div class="sidenav-dash d-none d-md-block"  style="background-image:url(../images/bg_sidenav.png)">
+            <div class="sidenav-info">
+                <img src="../images/appicon-dasH.png">
+                <h5 class="head-d2-c1">Nombre Sistema</h5>
+                <h6 class="head-d2-c2">Versión 1.1</h6>
+            </div>
+            <div class="sidenav-menu">
+                <ul class="list-l3">
+                    <a href="#">
+                        <li class="active" active>
+                        <div class="glyph-icon flaticon-home-button ic-izq"></div>Lista Item 1
+                        </li>
+                    </a>
+                    <a href="#">
+                        <li>
+                        <div class="glyph-icon flaticon-home-button ic-izq"></div>Lista Item 2
+                        </li>
+                    </a>
+                    <a href="#">
+                        <li>
+                        <div class="glyph-icon flaticon-home-button ic-izq"></div>Lista Item 3
+                        </li>
+                    </a>
+                </ul>
+            </div>
+            <div class="sidenav-footer">
+                <ul class="list-l3">
+                    <a href="#">
+                        <li>
+                        <div class="glyph-icon flaticon-home-button ic-izq"></div>Cerrar Sesión
+                        </li>
+                    </a>
+                </ul>
+                <div align="center"><img src="../images/logo.png"></div>
+            </div>
+        </div>
+
+        <!-- Navbar Dashboard -->
+        <div class="nav-dash">
+            <div class="row">
+                <div class="col-lg-12 d-none d-md-block" align="right">
+                    <form class="form-secundary col-lg-4 col-md-5">
+                        <div class="input-group input-img-right">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <div class="glyph-icon laticon-searching-magnifying-glass"></div>
+                                </span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Buscar..">
+                        </div>
+                    </form>
+                    <img src="../images/img_perfil_dash.png">
+                    <p class="text-d">Nombre Usuario</p>
+                </div>
+                <div class="col-sm-6 col-4 sm-none d-sm-block d-xs-block d-md-none" align="left">
+                    <div class="sec-menu-movil"><a onclick="openNav()"><div class="glyph-icon ic-d1 flaticon-menu-button"></div></a></div>
+                    
+                </div>
+                <div class="col-sm-6 col-8 sm-none d-sm-block d-xs-block d-md-none" align="right">
+                    <img src="../images/img_perfil_dash.png">
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidenav Dashboard Movil -->
+        <div class="sidenav-movil sm-none d-sm-block d-xs-block d-md-none"  style="background-image:url(../images/bg_sidenav.png)" id="mySidenav">
+            <div class="sidenav-info">
+                <div class="sec-close-movil" align="right">
+                    <a onclick="closeNav()"><div class="glyph-icon ic-d1 flaticon-close-button"></div></a>
+                </div>
+                <img src="../images/appicon-dasH.png">
+                <h5 class="head-d2-c1">Nombre Sistema</h5>
+                <h6 class="head-d2-c2">Versión 1.1</h6>
+            </div>
+            <div class="sidenav-menu">
+                <ul class="list-l3">
+                    <a href="#">
+                        <li class="active" active>
+                        <div class="glyph-icon flaticon-home-button ic-izq"></div>Lista Item 1
+                        </li>
+                    </a>
+                    <a href="#">
+                        <li>
+                        <div class="glyph-icon flaticon-home-button ic-izq"></div>Lista Item 2
+                        </li>
+                    </a>
+                    <a href="#">
+                        <li>
+                        <div class="glyph-icon flaticon-home-button ic-izq"></div>Lista Item 3
+                        </li>
+                    </a>
+                </ul>
+            </div>
+            <div class="sidenav-footer">
+                <ul class="list-l3">
+                    <a href="#">
+                        <li>
+                        <div class="glyph-icon flaticon-home-button ic-izq"></div>Cerrar Sesión
+                        </li>
+                    </a>
+                </ul>
+                <div align="center"><img src="../images/logo.png"></div>
+            </div>
+        </div>
+
+        <!-- Contenido Dashboard -->
+        <div class="contenido-dash">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div align="center">
+                        <h1>Comienza a trabajar</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- Bootstrap core JavaScript -->
+        <script src="../js/jquery.slim.min.js"></script>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+
+        <!-- Animaciones JavaScript -->
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/mdb.min.js"></script>
+        <script type="text/javascript">
+            new WOW().init();
+        </script>
+
+        <script>
+            function openNav() {
+              document.getElementById("mySidenav").style.width = "240px";
+            }
+
+            function closeNav() {
+              document.getElementById("mySidenav").style.width = "0";
+            }
+        </script>
+
+        <!-- Filtrostabla -->
+        <script>
+        $(document).ready(function(){
+          $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+              $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+          });
+        });
+        </script>
+
+        <!-- Carga archivos -->
+        <script type="text/javascript">
+            function readURL(input) {
+              if (input.files && input.files[0]) {
+
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                  $('.image-upload-wrap').hide();
+
+                  $('.file-upload-image').attr('src', e.target.result);
+                  $('.file-upload-content').show();
+
+                  $('.image-title').html(input.files[0].name);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+
+              } else {
+                removeUpload();
+              }
+            }
+
+            function removeUpload() {
+              $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+              $('.file-upload-content').hide();
+              $('.image-upload-wrap').show();
+            }
+            $('.image-upload-wrap').bind('dragover', function () {
+                    $('.image-upload-wrap').addClass('image-dropping');
+                });
+                $('.image-upload-wrap').bind('dragleave', function () {
+                    $('.image-upload-wrap').removeClass('image-dropping');
+            });
+        </script>
+        <script type="text/javascript">
+            function readURL2(input) {
+              if (input.files && input.files[0]) {
+
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                  $('.image-upload-wrap2').hide();
+
+                  $('.file-upload-image2').attr('src/images/img-archivo.png');
+                  $('.file-upload-content2').show();
+
+                  $('.image-title2').html(input.files[0].name);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+
+              } else {
+                removeUpload();
+              }
+            }
+
+            function removeUpload2() {
+              $('.file-upload-input2').replaceWith($('.file-upload-input2').clone());
+              $('.file-upload-content2').hide();
+              $('.image-upload-wrap2').show();
+            }
+            $('.image-upload-wrap2').bind('dragover', function () {
+                    $('.image-upload-wrap2').addClass('image-dropping');
+                });
+                $('.image-upload-wrap2').bind('dragleave', function () {
+                    $('.image-upload-wrap2').removeClass('image-dropping');
+            });
+        </script>
+
+
+
+    </body>
+
+</html>

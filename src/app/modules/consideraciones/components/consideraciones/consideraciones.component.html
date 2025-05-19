@@ -1,0 +1,33 @@
+<section class="container mt-5 mb-5">
+  <h2 class="text-center mb-4">Consideraciones según tu perfil</h2>
+
+  <div *ngIf="documentosFiltrados.length > 0; else sinDocs">
+    <div class="row justify-content-center">
+      <div class="col-md-6 mb-4" *ngFor="let doc of documentosFiltrados">
+        <div class="card h-100 shadow-sm border-0">
+          <div class="card-body d-flex flex-column justify-content-between">
+            <h5 class="card-title">{{ doc.nombre }}</h5>
+            <p class="card-text">{{ doc.descripcion }}</p>
+            <small class="text-muted">Publicado: {{ doc.fecha | date:'mediumDate' }}</small>
+            <div class="d-flex gap-2 mt-3">
+              <button mat-raised-button color="primary" (click)="abrirDocumento(doc)">
+                <mat-icon>visibility</mat-icon>
+                Ver
+              </button>
+              <a mat-raised-button color="accent" [href]="doc.archivoUrl" download>
+                <mat-icon>download</mat-icon>
+                Descargar
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #sinDocs>
+    <div class="alert alert-info text-center mt-4">
+      No hay documentos disponibles para tu perfil.
+    </div>
+  </ng-template>
+</section>

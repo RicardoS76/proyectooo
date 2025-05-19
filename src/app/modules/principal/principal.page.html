@@ -1,0 +1,221 @@
+<!-- ✅ Alerta flotante tipo toast -->
+<div *ngIf="alerta" class="toast-alert"
+     [ngClass]="{
+       'toast-success': alerta.tipo === 'success',
+       'toast-error': alerta.tipo === 'error'
+     }">
+  {{ alerta.mensaje }}
+</div>
+
+
+
+<!-- 🎞️ Carrusel -->
+<div class="carrusel-container">
+  <mat-tab-group *ngIf="items.length > 0"
+                 mat-stretch-tabs
+                 animationDuration="1000ms"
+                 #tabGroup>
+    <mat-tab *ngFor="let item of items; let i = index">
+      <div class="carousel-slide">
+        <button *ngIf="rolUsuario === 'superAdmin'"
+                mat-mini-fab color="warn"
+                class="delete-slide-btn"
+                (click)="eliminarSlide(i)"
+                matTooltip="Eliminar este slide">
+          <mat-icon>close</mat-icon>
+        </button>
+
+        <ng-container *ngIf="rolUsuario === 'superAdmin' || rolUsuario === 'admin'; else soloPublico">
+          <div class="carousel-caption-top">
+            <div class="text-container">
+              <strong>{{ item.titulo }}</strong> |
+              <span>{{ item.descripcion }}</span>
+            </div>
+            <div class="date-info">
+              <small><strong>Registro:</strong> {{ item.fechaRegistro | date:'mediumDate' }}</small><br>
+              <small><strong>Expira:</strong> {{ item.fechaExpiracion | date:'mediumDate' }}</small><br>
+              <small><strong>Exposición:</strong> {{ item.fechaExposicion | date:'mediumDate' }}</small>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #soloPublico>
+          <div class="carousel-caption-top">
+            <strong>{{ item.titulo }}</strong>
+          </div>
+        </ng-template>
+
+        <ng-container *ngIf="item.link; else imagenSinLink">
+          <a [href]="item.link" target="_blank" rel="noopener noreferrer">
+            <img [src]="item.imagenUrl" alt="{{ item.titulo }}" class="carousel-img" />
+          </a>
+        </ng-container>
+        <ng-template #imagenSinLink>
+          <img [src]="item.imagenUrl" alt="{{ item.titulo }}" class="carousel-img" />
+        </ng-template>
+
+        <div class="controls-overlay">
+          <button mat-mini-fab color="primary" class="prev-btn" (click)="previousSlide()">
+            <mat-icon>chevron_left</mat-icon>
+          </button>
+          <button mat-mini-fab color="primary" class="next-btn" (click)="nextSlide()">
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+<div *ngIf="items.length === 0" class="no-slides-msg">
+  <mat-icon>slideshow</mat-icon>
+  <p>No hay contenido en el carrusel actualmente. Agrega un nuevo slide para comenzar.</p>
+</div>
+
+<!-- 🎛️ Dirección centrada sobre el carrusel -->
+<div class="carousel-direction-wrapper text-center mt-4" *ngIf="rolUsuario === 'superAdmin'">
+  <mat-form-field appearance="outline">
+    <mat-label>Dirección de rotación</mat-label>
+    <mat-select [(ngModel)]="direccionCarrusel" (selectionChange)="cambiarDireccion()">
+      <mat-option value="derecha">Derecha →</mat-option>
+      <mat-option value="izquierda">← Izquierda</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<!-- 🧩 Tabla de reordenamiento de slides -->
+<div class="slide-reorder-table" *ngIf="rolUsuario === 'superAdmin'">
+  <h4>Reordenar Slides</h4>
+
+  <table class="mat-elevation-z1 reorder-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Título</th>
+        <th>Ubicar en posición</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ item.titulo || 'Sin título' }}</td>
+        <td>
+          <mat-form-field appearance="fill" class="orden-dropdown">
+            <mat-select [value]="i" (selectionChange)="cambiarOrdenSlide(i, $event.value)">
+              <mat-option *ngFor="let pos of items; let idx = index" [value]="idx">
+                {{ idx + 1 }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+  <div class="pause-container">
+    <button mat-mini-fab color="warn" (click)="togglePause()">
+      <mat-icon>{{ isPaused ? 'play_arrow' : 'pause' }}</mat-icon>
+    </button>
+  </div>
+</div>
+
+<!-- ➕ Nuevo slide solo para superAdmin -->
+<section class="nuevo-slide-form carrusel-admin" *ngIf="rolUsuario === 'superAdmin'">
+  <h3>Agregar nuevo slide</h3>
+
+  <div class="form-row">
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>Título</mat-label>
+      <input matInput [(ngModel)]="nuevoSlide.titulo" name="titulo">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>Descripción</mat-label>
+      <input matInput [(ngModel)]="nuevoSlide.descripcion" name="descripcion">
+    </mat-form-field>
+  </div>
+
+  <div class="form-row">
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>Fecha de expiración</mat-label>
+      <input matInput [matDatepicker]="expPicker" [(ngModel)]="nuevoSlide.fechaExpiracion" name="fechaExpiracion">
+      <mat-datepicker-toggle matSuffix [for]="expPicker"></mat-datepicker-toggle>
+      <mat-datepicker #expPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="half-width mt-exposicion">
+      <mat-label>Fecha de exposición en el carrusel</mat-label>
+      <input matInput [matDatepicker]="expCarruselPicker" [(ngModel)]="nuevoSlide.fechaExposicion" name="fechaExposicion">
+      <mat-datepicker-toggle matSuffix [for]="expCarruselPicker"></mat-datepicker-toggle>
+      <mat-datepicker #expCarruselPicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="form-row">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Enlace opcional (URL)</mat-label>
+      <input matInput [(ngModel)]="nuevoSlide.link" name="link" type="url" placeholder="https://...">
+    </mat-form-field>
+  </div>
+
+  <div class="upload-section">
+    <label class="upload-label">Imagen (temporal)</label>
+    <input type="file" (change)="onNuevaImagenSeleccionada($event)" accept="image/*">
+    <img *ngIf="nuevaImagenTemporal"
+         [src]="nuevaImagenTemporal"
+         alt="Previsualización"
+         style="max-width: 100%; margin-top: 1rem; border-radius: 8px;">
+  </div>
+
+  <div class="mt-3">
+    <button mat-raised-button color="primary" (click)="confirmarNuevoSlide()">
+      <mat-icon>check</mat-icon>
+      Confirmar nuevo slide
+    </button>
+  </div>
+</section>
+
+<!-- 📚 Guías de soporte -->
+<section class="guides-section">
+  <h2>Consulta nuestras guías y soporte para tus dudas:</h2>
+
+  <div class="guides-grid">
+    <mat-card class="guide-card" *ngFor="let guide of paginatedGuides" @fadeSlideIn>
+      <img mat-card-image [src]="guide.image" alt="{{ guide.title }}">
+      <mat-card-content class="card-content">
+        <h3 class="guide-title">{{ guide.title }}</h3>
+        <p class="guide-description">{{ guide.description }}</p>
+      </mat-card-content>
+      <mat-card-actions class="card-actions">
+        <ng-container *ngIf="rolUsuario === 'superAdmin'; else botonNormal">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Hipervínculo</mat-label>
+            <input matInput [(ngModel)]="guide.link" type="url" placeholder="https://...">
+          </mat-form-field>
+          <a mat-raised-button color="accent"
+             class="know-more-btn mt-2"
+             [href]="guide.link"
+             target="_blank" rel="noopener noreferrer">
+            Ir al enlace
+          </a>
+        </ng-container>
+        <ng-template #botonNormal>
+          <a mat-raised-button color="primary"
+             class="know-more-btn"
+             [href]="guide.link"
+             target="_blank" rel="noopener noreferrer">
+            Conoce más
+          </a>
+        </ng-template>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <mat-paginator
+    [length]="totalSize"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[2, 4, 6]"
+    (page)="handlePage($event)">
+  </mat-paginator>
+</section>

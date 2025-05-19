@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    	<meta name="description" content="">
+    	<meta name="author" content="">
+    	<title>Nueva Página</title>
+    	<!-- Bootstrap core CSS -->
+    	<link href="css/bootstrap.min.css" rel="stylesheet">
+    	<!-- Telcel CSS -->
+    	<link href="css/telcel.css" rel="stylesheet">
+    	<!-- Font Awesome -->
+        <link href="css/all.css" rel="stylesheet">
+        <link href="/your-path-to-fontawesome/css/fontawesome.css" rel="stylesheet">
+        <link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
+        <link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
+        <!-- Animaciones -->
+        <link href="css/animate.css" rel="stylesheet">
+        <!-- Iconos Material Design -->
+        <link href="css/flaticon.css" rel="stylesheet" type="text/css">
+        <link href="http://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" type="text/css"/>     
+    </head>
+
+    <body>
+
+        <!-- Comienza a Trabajar -->
+        <div class="sec-white" style="padding: 100px 0px 100px 0px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6" align="center">
+                        <h1>¡Bienvenido!</h1>
+                        <h4>Comienza a trabajar</h4>
+                        <h6>Sistema de Diseño Web 2.0</h6>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bootstrap core JavaScript -->
+        <script src="js/jquery.slim.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+
+        <!-- Animaciones JavaScript -->
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/mdb.min.js"></script>
+        <script type="text/javascript">
+            new WOW().init();
+        </script>
+
+        <!-- Filtrostabla -->
+        <script>
+            $(document).ready(function(){
+              $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+              });
+            });
+        </script>
+
+        <!-- Carga archivos -->
+        <script type="text/javascript">
+            function readURL(input) {
+              if (input.files && input.files[0]) {
+
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                  $('.image-upload-wrap').hide();
+
+                  $('.file-upload-image').attr('src', e.target.result);
+                  $('.file-upload-content').show();
+
+                  $('.image-title').html(input.files[0].name);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+
+              } else {
+                removeUpload();
+              }
+            }
+
+            function removeUpload() {
+              $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+              $('.file-upload-content').hide();
+              $('.image-upload-wrap').show();
+            }
+            $('.image-upload-wrap').bind('dragover', function () {
+                    $('.image-upload-wrap').addClass('image-dropping');
+                });
+                $('.image-upload-wrap').bind('dragleave', function () {
+                    $('.image-upload-wrap').removeClass('image-dropping');
+            });
+        </script>
+        <script type="text/javascript">
+            function readURL2(input) {
+              if (input.files && input.files[0]) {
+
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                  $('.image-upload-wrap2').hide();
+
+                  $('.file-upload-image2').attr('src/images/img-archivo.png');
+                  $('.file-upload-content2').show();
+
+                  $('.image-title2').html(input.files[0].name);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+
+              } else {
+                removeUpload();
+              }
+            }
+
+            function removeUpload2() {
+              $('.file-upload-input2').replaceWith($('.file-upload-input2').clone());
+              $('.file-upload-content2').hide();
+              $('.image-upload-wrap2').show();
+            }
+            $('.image-upload-wrap2').bind('dragover', function () {
+                    $('.image-upload-wrap2').addClass('image-dropping');
+                });
+                $('.image-upload-wrap2').bind('dragleave', function () {
+                    $('.image-upload-wrap2').removeClass('image-dropping');
+            });
+        </script>
+
+    </body>
+
+</html></a>

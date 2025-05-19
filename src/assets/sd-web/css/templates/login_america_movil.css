@@ -1,0 +1,248 @@
+@font-face {
+    font-family: 'Segoe UI';
+    src: url('../templates/fonts/SegoeUI.woff2') format('woff2'),
+        url('../templates/fonts/SegoeUI.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+
+/*  ----------------   Login universal   ----------------- */
+
+.sec-img-login{
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	width: 100vh;
+	font-family: 'Segoe UI';
+	color: #ffffff;
+}
+
+.contenido-form{
+	background-color:#001F5F;
+	margin: 0px;
+	padding: 40px 0px 100px 0px;
+	width: 100%;
+	height: 100vh;
+	text-align: center;
+	font-family: 'Segoe UI';
+	color: #ffffff;
+}
+
+.contenido-form h2{
+	font-weight: bold;
+	margin: 0px 0px 25px 0px;
+}
+
+.contenido-form h5{
+	font-weight: bold;
+	margin: 0px 0px 0px 0px;
+}
+
+.contenido-form p{
+	font-weight: bold;
+	margin: 0px 0px 25px 0px;
+}
+
+.contenido-form .form-secundary2{
+	padding: 0px;
+	font-family: 'Segoe UI';
+}
+
+.contenido-form .alert{
+	margin: 30px 0px 0px 0px;
+	font-size: 12px;
+}
+
+.contenido-form img{
+	width: 100px;
+	margin: 10px 10px 10px 10px;
+}
+
+
+
+
+
+
+
+.form-secundary2 .form-group{
+	font-family: 'Lato';
+	margin: 10px 0px 10px 0px;
+	color: #ffffff;
+}
+
+.form-secundary2 .form-group input{
+	border: 1px solid #ffffff;
+	color: #ffffff;
+	background-color: transparent;
+	font-family: 'Lato';
+}
+
+.form-secundary2 .form-group input:disabled{
+	border: 1px solid #039BE5;
+	color: #ffffff;
+	background-color: transparent;
+	opacity: .5;
+}
+
+.form-secundary2 .input-group{
+	font-family: 'Lato';
+	margin: 10px 0px 10px 0px;
+}
+
+.form-secundary2 .input-group input{
+	border-right: 0px;
+	border-left: 1px solid #4C63A3;
+	border-top: 1px solid #4C63A3;
+	border-bottom: 1px solid #4C63A3;
+	color: #ffffff;
+	background-color: transparent;
+	font-family: 'Lato';
+}
+
+.form-secundary2 .input-group span{
+	background-color: transparent;
+	border: 1px solid #4C63A3;
+	border-left: 0px;
+	border-radius: 3px;
+	color: #ffffff;
+}
+
+.form-secundary2 .input-img-right input{
+	border-left: 0px;
+	border-right: 1px solid #4C63A3;
+	border-top: 1px solid #4C63A3;
+	border-bottom: 1px solid #4C63A3;
+	color: #ffffff;
+	font-family: 'Lato';
+}
+
+.form-secundary2 .glyph-icon{
+	display: inline-block;
+	font-size: 16px;
+	margin: 0px 0px 0px 0px;
+	color: #4C63A3;
+}
+
+.form-secundary2 .glyph-icon:before{
+	display: inline-block;
+	font-size: 16px;
+	margin: 0px 0px 0px 0px;
+	color: #4C63A3;
+}
+
+.form-secundary2 .input-img-right span{
+	background-color: transparent;
+	border: 1px solid #039BE5;
+	border-right: 0px;
+	border-radius: 3px;
+	color: #ffffff;
+}
+
+.form-secundary2 .input-error input{
+	border-right: 0px;
+	border-left: 1px solid #b53333;
+	border-top: 1px solid #b53333;
+	border-bottom: 1px solid #b53333;
+	color: #ffffff;
+	font-family: 'Lato';
+}
+
+.form-secundary2 .input-error span{
+	background-color: transparent;
+	border: 1px solid #b53333;
+	border-left: 0px;
+	border-radius: 10px;
+	color: #b53333;
+}
+
+.form-secundary2 .mensaje-error{
+	margin: 0px;
+	padding: 0px;
+}
+
+.form-secundary2 .mensaje-error p{
+	color: #b53333;
+	align-content: left;
+	font-size: 14px;
+	margin: -10px 0px 0px 0px;
+	font-family: 'Lato';
+}
+
+.form-secundary2 .dropdown button{
+	width: 100%;
+	margin-bottom: 20px;
+	background-color: transparent;
+	border: 1px solid #4C63A3;
+	color: #ffffff;
+	text-align: left;
+	font-family: 'Lato';
+	text-transform: none;
+	font-size: 16px;
+	letter-spacing: 0px;
+}
+
+.form-secundary2 .dropdown i{
+	float: right;
+	padding-top: 3px;
+}
+
+.form-secundary2 .form-group select{
+	border: 1px solid #4C63A3;
+	color: #ffffff;
+	font-family: 'Lato';
+	background-color: transparent;
+}
+
+.form-secundary2 .form-group textarea{
+	border: 1px solid #039BE5;
+	color: #ffffff;
+	font-family: 'Lato';
+	background-color: transparent;
+}
+
+
+
+@media (max-width: 992px){
+
+.sec-img-login{
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	width: 500px;
+}
+
+.contenido-form{
+	background-color:#001F5F;
+	margin: 0px;
+	padding: 40px 30px 100px 30px;
+	width: 100%;
+	height: 100vh;
+	text-align: center;
+	font-family: 'Segoe UI';
+	color: #ffffff;
+}
+
+.banner-mob{
+height: 200px;}
+
+}
+
+@media (max-width: 960px){
+
+
+}
+
+@media (max-width: 720px){
+
+
+
+}
+
+@media (max-width: 520px){
+
+	
+
+}

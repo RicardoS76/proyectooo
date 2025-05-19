@@ -1,0 +1,140 @@
+/* Formulario de subida */
+.admin-form {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  background-color: #fdfdfd;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  .full-width {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  button {
+    margin-top: 1rem;
+  }
+}
+
+/* Alertas */
+.alert {
+  position: fixed; /* Cambiado de absolute a fixed */
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2000; /* Asegura visibilidad por encima del header */
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 500;
+  animation: fadeIn 0.3s ease-out;
+
+  &.alert-success {
+    background-color: #d0f0d2;
+    color: #256029;
+  }
+
+  &.alert-danger {
+    background-color: #fddede;
+    color: #8b1e1e;
+  }
+}
+
+/* Animación para la alerta */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Fondo oscuro */
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(33, 33, 33, 0.5);
+  z-index: 998;
+}
+
+/* Tarjeta de confirmación */
+.confirm-card {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  z-index: 1999;
+
+  .confirm-text {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  .confirm-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+}
+
+/* Tabla y secciones de documentos */
+.admin-table {
+  max-width: 1000px;
+  margin: 2rem auto;
+
+  table {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .acciones-botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    a, button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    mat-icon {
+      font-size: 18px;
+    }
+  }
+
+  .no-data-message {
+    text-align: center;
+    margin-top: 2rem;
+    font-style: italic;
+    color: #757575;
+  }
+}
+
+/* Estilo de tabs */
+.mat-tab-group {
+  margin-top: 2rem;
+}
+
+.form-row-horizontal {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  .half-width {
+    flex: 1;
+  }
+}

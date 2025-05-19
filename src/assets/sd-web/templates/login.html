@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    	<meta name="description" content="">
+    	<meta name="author" content="">
+    	<title>Template - Login</title>
+    	<!-- Bootstrap core CSS -->
+    	<link href="../css/bootstrap.min.css" rel="stylesheet">
+    	<!-- Telcel CSS -->
+    	<link href="../css/telcel.css" rel="stylesheet">
+    	<!-- Login CSS -->
+    	<link href="../css/templates/login.css" rel="stylesheet">
+    	<!-- Font Awesome -->
+    	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <!-- Animaciones -->
+        <link href="../css/animate.css" rel="stylesheet">
+        <!-- Iconos Material Design -->
+        <link href="../css/flaticon.css" rel="stylesheet" type="text/css">
+        <link href="http://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" type="text/css"/>     
+    </head>
+    <body>
+
+        
+        <section class="section-login" style="background-image:url(../images/bg_login.png)">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-xs-12 img-login" align="center">
+                        <img src="../images/img-ilustracion-login.png">
+                    </div>
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-4 col-xs-12 sec-formulario-login" align="center">
+                        <h2 class="head-d1-c2">Nombre del Sistema</h2>
+                        <h4 class="head-d1-c1">Iniciar Sesión</h4>
+                        <p class="text-d">Ingresa los datos para iniciar sesión.</p>
+                        
+                        <form class="form-secundary  col-lg-12 col-md-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="No. Empleado">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <div class="glyph-icon ic-l2 flaticon-user-shape"></div>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Contraseña">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <div class="glyph-icon ic-l2 flaticon-locked-padlock"></div>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                        <button type="button" class="btn btn-d1 col-lg-12 col-md-6">ENTRAR</button>
+                        <button type="button" class="btn btn-d4">Recuperar Contraseña <div class="glyph-icon flaticon-play-arrow"></div></button>
+                        <img src="../images/logo.png" class="logo-telcel">
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+        <!-- Bootstrap core JavaScript -->
+        <script src="../js/jquery.slim.min.js"></script>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+
+        <!-- Animaciones JavaScript -->
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/mdb.min.js"></script>
+        <script type="text/javascript">
+            new WOW().init();
+        </script>
+
+        <!-- Filtrostabla -->
+        <script>
+        $(document).ready(function(){
+          $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+              $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+          });
+        });
+        </script>
+
+        <!-- Carga archivos -->
+        <script type="text/javascript">
+            function readURL(input) {
+              if (input.files && input.files[0]) {
+
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                  $('.image-upload-wrap').hide();
+
+                  $('.file-upload-image').attr('src', e.target.result);
+                  $('.file-upload-content').show();
+
+                  $('.image-title').html(input.files[0].name);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+
+              } else {
+                removeUpload();
+              }
+            }
+
+            function removeUpload() {
+              $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+              $('.file-upload-content').hide();
+              $('.image-upload-wrap').show();
+            }
+            $('.image-upload-wrap').bind('dragover', function () {
+                    $('.image-upload-wrap').addClass('image-dropping');
+                });
+                $('.image-upload-wrap').bind('dragleave', function () {
+                    $('.image-upload-wrap').removeClass('image-dropping');
+            });
+        </script>
+        <script type="text/javascript">
+            function readURL2(input) {
+              if (input.files && input.files[0]) {
+
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                  $('.image-upload-wrap2').hide();
+
+                  $('.file-upload-image2').attr('src/images/img-archivo.png');
+                  $('.file-upload-content2').show();
+
+                  $('.image-title2').html(input.files[0].name);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+
+              } else {
+                removeUpload();
+              }
+            }
+
+            function removeUpload2() {
+              $('.file-upload-input2').replaceWith($('.file-upload-input2').clone());
+              $('.file-upload-content2').hide();
+              $('.image-upload-wrap2').show();
+            }
+            $('.image-upload-wrap2').bind('dragover', function () {
+                    $('.image-upload-wrap2').addClass('image-dropping');
+                });
+                $('.image-upload-wrap2').bind('dragleave', function () {
+                    $('.image-upload-wrap2').removeClass('image-dropping');
+            });
+        </script>
+
+
+
+    </body>
+
+</html>

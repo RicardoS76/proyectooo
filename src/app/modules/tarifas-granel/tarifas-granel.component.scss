@@ -1,0 +1,99 @@
+/* Encabezado simple y profesional */
+.tarifas-header-simple {
+  padding: 2rem 2rem 1.5rem;
+  border: 1px solid #b3b3b3;
+  border-radius: 12px;
+  background-color: #e6e6e6;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+  h1 {
+    font-size: 1.85rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    color: #1d1d1f;
+  }
+
+  p {
+    font-size: 1rem;
+    margin: 0;
+    color: #555;
+  }
+}
+
+@media (max-width: 768px) {
+  .tarifas-header-simple {
+    padding: 1.5rem 1rem;
+
+    h1 {
+      font-size: 1.5rem;
+      text-align: center;
+    }
+
+    p {
+      text-align: center;
+      font-size: 0.95rem;
+    }
+  }
+}
+
+/* Tabs y tablas */
+.tarifas-tabs {
+  margin-top: 20px;
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #1d1d1f;
+  }
+
+  .no-data-message {
+    text-align: center;
+    font-style: italic;
+    color: #888;
+    margin: 2rem 0;
+  }
+
+  table {
+    width: 100%;
+    margin-top: 1rem;
+
+    th {
+      background-color: #f9f9f9;
+      font-weight: 600;
+      text-align: left;
+    }
+
+    td {
+      vertical-align: middle;
+    }
+
+    .mat-button {
+      padding: 0 8px;
+      min-width: unset;
+    }
+
+    .acciones-botones {
+      display: flex;
+      gap: 0.5rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .tarifas-tabs {
+    h2 {
+      font-size: 1.25rem;
+      text-align: center;
+    }
+
+    table {
+      font-size: 0.9rem;
+    }
+
+    .acciones-botones {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}

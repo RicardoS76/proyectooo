@@ -1,0 +1,69 @@
+/* 🔹 Ícono con margen y alineación */
+mat-icon.me-1 {
+  margin-right: 6px;
+  vertical-align: middle;
+  font-size: 20px;
+  color: #0d6efd; // Azul más vivo
+}
+
+/* 🔹 Tabla hover y bordes suaves */
+.table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background-color: rgba(13, 110, 253, 0.05); // Más suave
+}
+/* ==== BOTÓN DE DESCARGA COMO ENLACE PLANO ==== */
+.btn-flat-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #003f9c;
+  background-color: transparent;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: color 0.2s ease, background-color 0.2s ease;
+
+  mat-icon {
+    font-size: 20px;
+    color: #003f9c;
+    vertical-align: middle;
+    transition: color 0.2s ease;
+  }
+
+  .texto-enlace {
+    color: inherit;
+    text-decoration: none;
+    transition: text-decoration 0.2s ease;
+  }
+
+  &:hover {
+    background-color: rgba(13, 110, 253, 0.05);
+    color: #003d80;
+
+    mat-icon {
+      color: #003d80;
+    }
+
+    .texto-enlace {
+      text-decoration: underline;
+    }
+  }
+
+  &:active {
+    background-color: rgba(13, 110, 253, 0.1);
+    color: #002b5c;
+
+    mat-icon {
+      color: #002b5c;
+    }
+
+    .texto-enlace {
+      text-decoration: underline;
+    }
+  }
+}

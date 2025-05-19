@@ -1,0 +1,329 @@
+.sitio-viajero-brand {
+  color: #ffffff;
+  font-family: 'Poppins', 'Arial', sans-serif; /* Tipografía moderna */
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4); /* Sombra para mejor contraste */
+  transition: all 0.3s ease;
+  display: inline-block;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.sitio-viajero-brand:hover {
+  transform: scale(1.05); /* Zoom leve */
+  color: #cce7ff; /* Azul claro en hover */
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+
+
+/* 🔵 Estructura base */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* 👈 Muy importante: min-height */
+}
+
+/* 🔹 Navbar fija arriba */
+.navbar {
+  height: 60px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to left, #004080, #3399ff);
+  color: white;
+  z-index: 1040;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 🔹 Contenedor bajo navbar: sidebar + contenido */
+.layout-body {
+  display: flex;
+  flex: 1;
+  margin-top: 60px;
+  height: calc(100vh - 60px);
+  overflow: hidden;
+}
+
+/* 🔹 Sidebar fijo */
+.sidebar-fixed {
+  position: fixed;
+  top: 60px;
+  bottom: 0;
+  left: 0;
+  width: 250px;
+  z-index: 1030;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-gradient {
+  background: linear-gradient(to bottom, #3399ff, #004080);
+  color: white;
+}
+
+.sidebar-scroll {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 1rem 1rem 0 1rem;
+}
+
+.sidebar-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+}
+.sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* 🔘 Botón cerrar sesión en sidebar */
+.sidebar-logout-fixed {
+  padding: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 🔹 Contenedor del contenido principal y footer */
+.layout-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-left: 250px;
+  overflow: hidden;
+  transition: margin-left 0.3s ease;
+}
+
+.layout-expanded {
+  margin-left: 250px;
+}
+
+.layout-collapsed {
+  margin-left: 70px;
+}
+
+/* 🟡 Contenido principal */
+.content-area {
+  flex: 1;
+  overflow-y: auto;
+  background-color: #fffcf4;
+  padding: 1rem;
+  height: 100vh;
+}
+
+/* 🔻 Footer (NO FIXED) */
+.footer-bar {
+  height: 90px;
+  background: linear-gradient(to right, #004080, #039be5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+  font-size: 1.15rem;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.15);
+  color: white;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.separator {
+  font-weight: bold;
+  opacity: 0.6;
+  padding: 0 0.4rem;
+}
+
+.hover-link {
+  cursor: pointer;
+  transition: background-color 0.3s ease, padding-left 0.3s ease;
+  border-radius: 0.375rem;
+  padding: 6px 10px;
+}
+.hover-link:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  padding-left: 14px;
+}
+
+/* 🧭 Sidebar items */
+.sidebar-item {
+  transition: background-color 0.3s ease, padding-left 0.3s ease;
+  border-radius: 0.375rem;
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.sidebar-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding-left: 20px;
+}
+.sidebar-item .material-icons {
+  font-size: 20px;
+  transition: opacity 0.3s ease;
+}
+.sidebar-item:hover .material-icons {
+  opacity: 0.8;
+}
+
+/* 🔁 Estados del sidebar */
+.sidebar-expanded {
+  width: 250px;
+}
+.sidebar-collapsed {
+  width: 70px !important;
+}
+.sidebar-collapsed .material-icons {
+  font-size: 22px;
+}
+.sidebar-collapsed .sidebar-text {
+  display: none;
+}
+.sidebar-collapsed .sidebar-item {
+  justify-content: center;
+}
+
+/* 🔄 Animación ícono menú */
+.rotate-icon {
+  display: inline-block;
+  transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  transform-origin: center;
+}
+.rotate-icon.rotated {
+  transform: rotate(630deg) scale(1.1);
+}
+
+/* 🔘 Botón cerrar sesión */
+.btn-cerrar-sesion {
+  background: linear-gradient(to right, #004aad, #007bff);
+  color: #fff;
+  font-weight: 500;
+  border: 2px solid #ffffff33;
+  padding: 10px 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+.btn-cerrar-sesion:hover {
+  background: #ffffff22;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}
+.btn-cerrar-sesion .material-icons {
+  font-size: 20px;
+}
+
+/* 🎨 Modal personalizado */
+.custom-modal-content {
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  background: #ffffff;
+  animation: fadeInDown 0.4s ease;
+  overflow: hidden;
+}
+.modal-header {
+  background: linear-gradient(to right, #004080, #3399ff);
+  color: white;
+  font-weight: 600;
+  justify-content: center;
+}
+.modal-title {
+  font-size: 1.4rem;
+}
+.modal-body {
+  font-size: 1.05rem;
+  color: #333;
+  padding: 1.5rem;
+}
+.modal-footer {
+  gap: 1rem;
+  padding: 1rem;
+  justify-content: center;
+}
+.btn-outline-primary {
+  border: 2px solid #007bff;
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+.btn-outline-primary:hover {
+  background-color: #007bff;
+  color: white;
+}
+.btn-danger {
+  background-color: #d9534f;
+  border: none;
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+.btn-danger:hover {
+  background-color: #c9302c;
+}
+
+/* ✨ Animación modal */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.submenu-nivel-1 {
+  display: flex;
+  align-items: center;
+  margin-left: 1.5rem;
+  padding-left: 1rem;
+  font-size: 0.95rem;
+  color: #ffffff;
+  border-left: 2px solid rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s ease, padding 0.3s ease;
+}
+
+.submenu-nivel-1:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+}
+
+.submenu-nivel-1 .material-icons {
+  font-size: 18px;
+  vertical-align: middle;
+  color: #ffffff;
+  transition: margin 0.3s ease;
+}
+
+/* 🔁 Comportamiento cuando el sidebar está colapsado */
+.sidebar-collapsed {
+  .submenu-nivel-1 {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    justify-content: center;
+    border-left: none;
+  }
+
+  .submenu-nivel-1 .material-icons {
+    margin: 0 auto;
+  }
+
+  .submenu-nivel-1 .sidebar-text {
+    display: none;
+  }
+}

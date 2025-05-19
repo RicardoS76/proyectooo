@@ -1,0 +1,95 @@
+
+/*  ----------------   Login universal   ----------------- */
+
+.section-login{
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 100vh;
+	padding: 130px 0px 0px 0px;
+}
+
+.img-login img{
+	width: 70%;
+}
+
+.sec-formulario-login{
+	padding: 0px 10px 0px 10px;
+}
+
+.sec-formulario-login p{
+	margin-bottom: 30px;
+}
+
+.form-secundary{
+	padding: 0px;
+}
+
+.logo-telcel{
+	margin: 20px 0px 20px 0px;
+}
+
+@media (max-width: 992px){
+
+	.section-login{
+		padding: 100px 0px 0px 0px;
+	}
+
+	.img-login img{
+		width: 40%;
+		margin: 0px 0px 30px 0px;
+	} 
+
+	.sec-formulario-login{
+		padding: 30px 20px 0px 20px;
+	}
+
+}
+
+@media (max-width: 960px){
+
+	.section-login{
+		padding: 100px 0px 0px 0px;
+	}
+
+	.img-login img{
+		width: 40%;
+		margin: 0px 0px 30px 0px;
+	} 
+
+
+}
+
+@media (max-width: 720px){
+
+	.section-login{
+		padding: 60px 0px 0px 0px;
+	}
+
+	.img-login img{
+		width: 40%;
+		margin: 0px 0px 20px 0px;
+	} 
+
+	.sec-formulario-login{
+		padding: 20px 20px 0px 20px;
+	}
+
+}
+
+@media (max-width: 520px){
+
+	.section-login{
+		padding: 35px 0px 0px 0px;
+	}
+
+	.img-login img{
+		width: 55%;
+		margin: 0px 0px 10px 0px;
+	} 
+
+	.sec-formulario-login{
+		padding: 20px 20px 0px 20px;
+	}
+
+}

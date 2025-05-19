@@ -1,0 +1,22 @@
+<h2 class="mb-4 text-center text-black">Gestión de Enlaces Externos</h2>
+
+<div class="link-card" *ngFor="let key of linkKeys">
+  <div class="link-card-header">
+    <h3 class="link-title">{{ key }}</h3>
+    <span class="link-subtitle">Modifica el enlace para <strong>"{{ key }}"</strong></span>
+  </div>
+
+  <div class="link-card-body">
+    <mat-form-field appearance="outline" class="compact-input">
+      <mat-label>URL</mat-label>
+      <input matInput [(ngModel)]="links[key]" type="url" placeholder="https://..." />
+    </mat-form-field>
+
+    <div class="btn-container">
+      <button mat-flat-button color="primary" (click)="guardarLink(key)">
+        <mat-icon class="me-1">save</mat-icon>
+        Guardar enlace
+      </button>
+    </div>
+  </div>
+</div>

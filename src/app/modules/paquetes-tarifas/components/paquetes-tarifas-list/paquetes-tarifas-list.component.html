@@ -1,0 +1,53 @@
+<section class="container mt-5 mb-5">
+  <h2 class="text-center mb-4">Documentos: {{ categoriaRuta | titlecase }}</h2>
+
+  <!-- Template de vacío -->
+  <ng-template #sinDocs>
+    <div class="alert alert-info text-center mt-4">
+      No hay documentos disponibles para esta sección.
+    </div>
+  </ng-template>
+
+  <!-- Tabla + paginador -->
+  <div *ngIf="documentos.length > 0; else sinDocs" class="table-responsive">
+
+    <!-- Tabla con documentos -->
+    <table class="table table-bordered align-middle shadow-sm">
+      <thead class="table-light">
+        <tr>
+          <th style="width: 40%;">Título</th>
+          <th style="width: 45%;">Descripción</th>
+          <th style="width: 15%;" class="text-center">Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let doc of documentosPaginados">
+          <td>
+            <mat-icon class="me-2">{{ getIconoPorTipoArchivo(doc.archivo) }}</mat-icon>
+            {{ doc.titulo }}
+          </td>
+          <td>{{ doc.descripcion }}</td>
+          <td class="text-center">
+<a [href]="doc.archivo" download class="btn-flat-download">
+  <mat-icon class="me-1" color="primary" >download</mat-icon>
+  <span class="texto-enlace">Descargar</span>
+</a>
+
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Paginador Angular Material -->
+    <mat-paginator
+      [length]="documentos.length"
+      [pageSize]="elementosPorPagina"
+      [pageSizeOptions]="[5, 10, 20]"
+      (page)="actualizarPaginacion($event)"
+      showFirstLastButtons
+      class="mt-3">
+    </mat-paginator>
+
+  </div>
+</section>

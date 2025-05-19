@@ -1,0 +1,157 @@
+
+/*  ----------------   Login universal   ----------------- */
+
+/* Sidenav */
+
+.sidenav-dash {
+  height: 100%;
+  width: 240px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 30px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.sidenav-info{
+	padding: 0px 10px 0px 10px;
+	text-align: center;
+}
+
+.sidenav-info img{
+	margin: 0px 0px 20px 0px;
+}
+
+.sidenav-info h5{
+	margin: 10px 0px 10px 0px;
+}
+
+.sidenav-menu{
+	margin: 50px 0px 0px 0px;
+}
+
+.sidenav-footer{
+	bottom: 0px;
+	position: absolute;
+	width: 100%;
+}
+
+.sidenav-footer img{
+	width: 100px;
+	margin: 30px 0px 30px 0px;
+}
+
+/* Navbar */
+
+.nav-dash{
+	height: 60px;
+	width: 100%;
+	background-color: #002177;
+	position: fixed;
+	top: 0;
+	padding: 0px 30px 0px 270px;
+}
+
+.nav-dash .form-secundary{
+	display: inline-block;
+}
+
+.nav-dash img{
+	display: inline-block;
+	margin: 0px 10px 0px 20px;
+}
+
+.nav-dash p{
+	display: inline-block;
+}
+
+.sec-menu-movil{
+	padding-top: 5px;
+}
+
+.sec-menu-movil a:hover{
+	opacity: .7;
+}
+
+/* Contenido Dash */
+
+.contenido-dash{
+	margin: 60px 0px 0px 240px;
+	padding: 0px;
+}
+
+
+.sidenav-dash {
+  height: 100%;
+  width: 240px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  
+}
+
+.sidenav-movil {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 10px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.sec-close-movil{
+	padding: 0px 0px 20px 0px;
+}
+
+
+@media (max-width: 992px){
+
+	
+
+
+	
+
+	
+
+}
+
+
+
+@media (max-width: 767px){
+
+	.nav-dash{
+		height: 60px;
+		width: 100%;
+		background-color: #002177;
+		position: fixed;
+		top: 0;
+		padding: 10px 10px 0px 10px;
+	}
+
+	.contenido-dash{
+		margin: 60px 0px 0px 0px;
+		padding: 0px;
+	}
+
+}
+
+@media (max-width: 520px){
+
+	
+
+}

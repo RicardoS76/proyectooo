@@ -1,0 +1,174 @@
+<!-- ✅ Alerta flotante tipo toast -->
+<div *ngIf="alerta" class="toast-alert"
+     [ngClass]="{
+       'toast-success': alerta.tipo === 'success',
+       'toast-error': alerta.tipo === 'error'
+     }">
+  {{ alerta.mensaje }}
+</div>
+
+<section class="container mt-5 mb-5">
+  <h2 class="text-center mb-4">¿Sabías que?</h2>
+
+  <!-- 📝 Formulario de superAdmin -->
+  <div #formularioRef *ngIf="rol === 'superAdmin'" class="admin-form mb-4">
+    <h4>Agregar nuevo comunicado</h4>
+
+    <div class="form-row">
+      <mat-form-field appearance="fill">
+        <mat-label>Título</mat-label>
+        <input matInput [(ngModel)]="nuevo.titulo" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput [(ngModel)]="nuevo.descripcion"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>URL de Redirección (opcional)</mat-label>
+        <input matInput [(ngModel)]="nuevo.url" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-row-horizontal">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>URL de la Imagen</mat-label>
+        <input matInput [(ngModel)]="nuevo.imagenUrl" />
+      </mat-form-field>
+
+      <img *ngIf="nuevo.imagenUrl"
+           [src]="nuevo.imagenUrl"
+           alt="Vista previa"
+           width="150"
+           height="60"
+           style="object-fit: cover; border-radius: 6px" />
+    </div>
+
+    <button mat-raised-button color="primary" class="mt-2" (click)="guardarComunicado()">
+      {{ modoEdicion ? 'Actualizar' : 'Agregar' }}
+    </button>
+    <button mat-button color="warn" class="mt-2 ms-2" *ngIf="modoEdicion" (click)="cancelarEdicion()">
+      Cancelar edición
+    </button>
+  </div>
+
+  <!-- 📄 Tabs -->
+  <mat-tab-group>
+    <mat-tab label="Comunicados">
+      <div class="row mt-4">
+        <div class="col-md-4 mb-4" *ngFor="let doc of comunicadosPaginados"
+             [hidden]="documentosOcultos.includes(doc.id)">
+          <mat-card class="sabias-card"
+                    [class.clickable]="!rolEsAdmin() && doc.url"
+                    (click)="!rolEsAdmin() && doc.url ? abrirEnlace(doc.url) : abrirDetalle(doc)">
+            <img mat-card-image [src]="doc.imagenUrl" alt="{{ doc.titulo }}">
+            <mat-card-content>
+              <h5 class="sabias-title">{{ doc.titulo }}</h5>
+              <p class="sabias-description text-truncate">{{ doc.descripcion }}</p>
+              <small class="text-muted">{{ doc.fecha }}</small>
+
+              <div *ngIf="rolEsAdmin()" class="mt-2 text-end">
+                <button mat-icon-button color="primary" (click)="editarDirecto(doc, $event)" matTooltip="Editar">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="eliminarDirecto(doc, $event)" matTooltip="Eliminar">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+      <mat-paginator [length]="comunicados.length"
+                     [pageSize]="pageSize"
+                     [pageSizeOptions]="[3, 6, 9]"
+                     (page)="handlePage($event, 'comunicados')">
+      </mat-paginator>
+    </mat-tab>
+
+    <mat-tab label="Mes Anterior">
+      <div class="row mt-4">
+        <div class="col-md-4 mb-4" *ngFor="let doc of mesAnteriorPaginados"
+             [hidden]="documentosOcultos.includes(doc.id)">
+          <mat-card class="sabias-card"
+                    [class.clickable]="!rolEsAdmin() && doc.url"
+                    (click)="!rolEsAdmin() && doc.url ? abrirEnlace(doc.url) : abrirDetalle(doc)">
+            <img mat-card-image [src]="doc.imagenUrl" alt="{{ doc.titulo }}">
+            <mat-card-content>
+              <h5 class="sabias-title">{{ doc.titulo }}</h5>
+              <p class="sabias-description text-truncate">{{ doc.descripcion }}</p>
+              <small class="text-muted">{{ doc.fecha }}</small>
+
+              <div *ngIf="rolEsAdmin()" class="mt-2 text-end">
+                <button mat-icon-button color="primary" (click)="editarDirecto(doc, $event)" matTooltip="Editar">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="eliminarDirecto(doc, $event)" matTooltip="Eliminar">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+      <mat-paginator [length]="mesAnterior.length"
+                     [pageSize]="pageSize"
+                     [pageSizeOptions]="[3, 6, 9]"
+                     (page)="handlePage($event, 'mesAnterior')">
+      </mat-paginator>
+    </mat-tab>
+
+    <mat-tab label="2024">
+      <div class="row mt-4">
+        <div class="col-md-4 mb-4" *ngFor="let doc of anio2024Paginados"
+             [hidden]="documentosOcultos.includes(doc.id)">
+          <mat-card class="sabias-card"
+                    [class.clickable]="!rolEsAdmin() && doc.url"
+                    (click)="!rolEsAdmin() && doc.url ? abrirEnlace(doc.url) : abrirDetalle(doc)">
+            <img mat-card-image [src]="doc.imagenUrl" alt="{{ doc.titulo }}">
+            <mat-card-content>
+              <h5 class="sabias-title">{{ doc.titulo }}</h5>
+              <p class="sabias-description text-truncate">{{ doc.descripcion }}</p>
+              <small class="text-muted">{{ doc.fecha }}</small>
+
+              <div *ngIf="rolEsAdmin()" class="mt-2 text-end">
+                <button mat-icon-button color="primary" (click)="editarDirecto(doc, $event)" matTooltip="Editar">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="eliminarDirecto(doc, $event)" matTooltip="Eliminar">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+      <mat-paginator [length]="anio2024.length"
+                     [pageSize]="pageSize"
+                     [pageSizeOptions]="[3, 6, 9]"
+                     (page)="handlePage($event, 'anio2024')">
+      </mat-paginator>
+    </mat-tab>
+  </mat-tab-group>
+
+  <!-- 🔍 Modal Detalle -->
+  <div class="modal fade show d-block" tabindex="-1" *ngIf="documentoSeleccionado" style="background-color: rgba(0,0,0,0.5);">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ documentoSeleccionado.titulo }}</h5>
+          <button type="button" class="btn-close" (click)="cerrarDetalle()"></button>
+        </div>
+        <div class="modal-body">
+          <img [src]="documentoSeleccionado.imagenUrl" class="img-fluid mb-3" alt="{{ documentoSeleccionado.titulo }}">
+          <p>{{ documentoSeleccionado.descripcion }}</p>
+          <small class="text-muted">Publicado: {{ documentoSeleccionado.fecha }}</small>
+        </div>
+        <div class="modal-footer justify-center">
+          <button type="button" class="btn cerrar-btn" (click)="cerrarDetalle()">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

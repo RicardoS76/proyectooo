@@ -1,0 +1,25 @@
+.card {
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+}
+
+.card-title {
+  font-weight: 600;
+}
+
+.card-text {
+  color: #555;
+}
+
+h4 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #003366;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 4px;
+}
+
+mat-icon.me-1 {
+  margin-right: 6px;
+  vertical-align: middle;
+}
