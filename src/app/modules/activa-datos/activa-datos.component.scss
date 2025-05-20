@@ -1,172 +1,205 @@
-#activa-datos-viaje {
-  background: #f9f9f9;
-  padding: 50px 20px;
-  border-radius: 15px;
+.seccion-datos-viaje {
+  padding: 2rem 1rem;
+  width: 100%;
+  overflow-x: hidden;
 }
 
-.icon-container {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  transition: transform 0.3s ease;
+.sistema-layout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 2rem;
+}
+
+.tarjetas-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex-shrink: 0;
+  width: 160px;
+}
+
+.sistema-card {
+  position: relative;
+  padding: 1rem;
   cursor: pointer;
-}
-
-.icon-container:hover {
-  transform: translateY(-5px);
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.selected {
-  border: 2px solid #1976d2;
-  box-shadow: 0px 0px 12px rgba(25, 118, 210, 0.4);
-}
-
-mat-card {
   border-radius: 12px;
+  background-color: white;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease;
+
+  &.selected {
+    border: 2px solid #1976d2;
+    box-shadow: 0 0 12px rgba(25, 118, 210, 0.3);
+  }
+
+  mat-card-content {
+    text-align: center;
+
+    img {
+      width: 64px;
+      height: auto;
+      margin-bottom: 0.5rem;
+    }
+
+    h5 {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+  }
 }
 
-mat-card h5 {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-top: 10px;
+/* 🌐 GLOBO ADAPTATIVO */
+.globo-historieta {
+  position: absolute;
+  left: 110%;
+  background: #fff;
+  padding: 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  min-width: 300px;
+  width: max-content;
+  max-width: calc(65vw - 3rem); // margen lateral de seguridad
+  z-index: 10;
+  animation: fadeIn 0.3s ease;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
 }
 
-#instrucciones {
-  background: white;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Animación base */
-.fade-in {
-  animation: fadeIn 0.4s ease-in-out;
-}
-
+/* Animación suave */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translate(20px, -50%);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate(0, -50%);
   }
 }
 
-/* Nueva animación más suave y lateral */
-.fade-slide-in {
-  animation: fadeSlideIn 0.5s ease;
+/* Posición de globo según ubicación de tarjeta */
+.globo-centro {
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-@keyframes fadeSlideIn {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
+.globo-abajo {
+  top: 10px;
+}
+
+.globo-arriba {
+  bottom: 10px;
+}
+
+/* Flecha lateral */
+.globo-historieta::before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 12px solid #fff;
+}
+
+/* Ajustes de flecha según posición */
+.globo-centro::before {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.globo-abajo::before {
+  top: 20px;
+  transform: none;
+}
+
+.globo-arriba::before {
+  bottom: 20px;
+  top: auto;
+  transform: none;
+}
+
+.globo-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+
+  .globo-icono {
+    height: 36px;
+    width: auto;
   }
-  to {
-    opacity: 1;
-    transform: translateX(0);
+
+  h4 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #0d47a1;
   }
 }
 
-/* Editor de Quill estilizado */
-::ng-deep quill-editor {
-  background-color: white;
-  border-radius: 6px;
-  border: 1px solid #ced4da;
-  padding: 10px;
-  display: block;
-
-  .ql-toolbar.ql-snow {
-    border-radius: 6px 6px 0 0;
-    border: 1px solid #ced4da;
-  }
-
-  .ql-container.ql-snow {
-    border: 1px solid #ced4da;
-    border-top: none;
-    border-radius: 0 0 6px 6px;
-    min-height: 200px;
-    background-color: #fff;
-  }
+.globo-cuerpo {
+  font-size: 0.95rem;
+  color: #333;
+  line-height: 1.6;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 /* Responsividad */
 @media (max-width: 768px) {
-  mat-grid-list {
-    grid-template-columns: 1fr !important;
-  }
-
-  mat-grid-tile {
-    width: 100%;
-    display: block;
-  }
-
-  .icon-container {
-    width: 100%;
-  }
-
-  #instrucciones .row > div {
-    text-align: center;
-  }
-
-  form .col-md-6 {
-    width: 100%;
-  }
-
-  form .col-12 {
-    width: 100%;
-  }
-
-  form {
-    padding: 0 10px;
-  }
-}
-
-#editor {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 1rem;
-  min-height: 200px;
-}
-
-/* ==== BOTONES DE ACCIÓN DE FORMULARIO ==== */
-.col-12.text-end.mt-3 {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-
-  button[mat-flat-button],
-  button[mat-button] {
-    font-size: 0.88rem;
-    padding: 0.45rem 1.1rem;
-    border-radius: 2rem;
-    font-weight: 600;
-    display: inline-flex;
+  .sistema-layout {
+    flex-direction: column;
     align-items: center;
-    gap: 6px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   }
 
-  button[mat-flat-button] {
-    background-color: #1976d2;
-    color: white;
+  .tarjetas-column {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .sistema-card {
+    width: 120px;
+  }
+
+  .globo-historieta {
+    position: static;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 1rem;
+    left: unset !important;
+    transform: none !important;
+  }
+
+  .globo-historieta::before {
+    display: none;
+  }
+}
+
+.acciones-card {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+
+  button {
+    background-color: #f5f5f5;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    padding: 6px;
+    width: 36px;
+    height: 36px;
+    transition: background-color 0.2s ease;
 
     &:hover {
-      background-color: #125ea2;
+      background-color: #e0e0e0;
     }
-  }
 
-  button[mat-button][color="warn"] {
-    color: #d32f2f;
-
-    &:hover {
-      background-color: rgba(211, 47, 47, 0.08);
+    mat-icon {
+      font-size: 20px;
     }
   }
 }

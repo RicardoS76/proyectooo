@@ -82,6 +82,7 @@ export class GerenciaAdminRiComponent implements OnInit, AfterViewInit {
   categoriasDisponibles = computed(() => {
     const r = this.rol();
     if (r === 'superAdmin') return ['cci', 'cce', 'calidad'];
+      if (r === 'admin') return ['cci', 'cce', 'calidad'];
     if (r === 'auditor') return ['calidad'];
     if (r === 'cci') return ['cci'];
     if (r === 'cce') return ['cce'];

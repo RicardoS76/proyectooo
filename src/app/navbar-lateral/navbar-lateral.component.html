@@ -95,9 +95,9 @@
                   <span class="sidebar-text">Datos Corporativo</span>
                 </li>
                 <li class="sidebar-item d-flex align-items-center mb-1 submenu-nivel-1"
-                  [routerLink]="'/paquetes-tarifas/maritimo-aereo'" routerLinkActive="active-link">
+                  [routerLink]="'/paquetes-tarifas/aereo'" routerLinkActive="active-link">
                   <span class="material-icons me-2">flight_takeoff</span>
-                  <span class="sidebar-text">Marítimo y Aéreo</span>
+                  <span class="sidebar-text">Aéreo</span>
                 </li>
               </ng-container>
 
@@ -183,12 +183,21 @@
             </li>
 
             <!-- 📁 Gerencia Admón. RI - Carga/Descarga de Archivos -->
-            <li *ngIf="['superAdmin', 'auditor', 'cce', 'cci'].includes(rolUsuario)"
+            <li *ngIf="['superAdmin', 'auditor', 'cce', 'cci', 'admin'].includes(rolUsuario)"
               class="sidebar-item d-flex align-items-center mb-3" title="Roaming Internacional - Admón"
               [routerLink]="['/gerencia-admin-ri']" routerLinkActive="active-link">
               <span class="material-icons me-2">folder_shared</span>
               <span class="sidebar-text">Gerencia Admón. RI</span>
             </li>
+
+<li *ngIf="['superAdmin'].includes(rolUsuario)"
+    class="sidebar-item d-flex align-items-center mb-3"
+    title="Roaming Internacional - Administración"
+    [routerLink]="['/admin/enlaces']"
+    routerLinkActive="active-link">
+  <span class="material-icons me-2">link</span>
+  <span class="sidebar-text">Administración de Enlaces</span>
+</li>
 
 
           </ul>

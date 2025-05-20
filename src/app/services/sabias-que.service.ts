@@ -12,7 +12,7 @@ private documentosMock: SabiasQueDocumento[] = [
     categoria: 'comunicados',
     imagenUrl: 'assets/sd-web/images/AMT_felicidades.png',
     fecha: '2025-05-10',
-    url: '' // ⛔ redirige a 404
+    url: ''
   },
   {
     id: 2,

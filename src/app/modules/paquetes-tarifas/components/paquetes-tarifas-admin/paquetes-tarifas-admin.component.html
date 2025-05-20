@@ -48,7 +48,7 @@
           <mat-option value="sms">SMS</mat-option>
           <mat-option value="voz">Voz</mat-option>
           <mat-option value="datos">Datos</mat-option>
-          <mat-option value="maritimo-aereo">Marítimo y Aéreo</mat-option>
+          <mat-option value="aereo">Aéreo</mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -105,6 +105,7 @@
 <mat-tab-group class="admin-table mt-5">
   <!-- Tab Corporativo -->
   <mat-tab label="Corporativo">
+    <br>
     <h2>Archivos Corporativo</h2>
 
     <table mat-table [dataSource]="archivosCorporativoDS" class="mat-elevation-z8 full-width" *ngIf="archivosCorporativoDS.data.length > 0">
@@ -155,6 +156,7 @@
 
   <!-- Tab Masivo -->
   <mat-tab label="Masivo">
+    <br>
     <h2>Archivos Masivo</h2>
 
     <table mat-table [dataSource]="archivosMasivoDS" class="mat-elevation-z8 full-width" *ngIf="archivosMasivoDS.data.length > 0">

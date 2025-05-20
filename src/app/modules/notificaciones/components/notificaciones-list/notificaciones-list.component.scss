@@ -1,6 +1,21 @@
-.notificaciones-tabla-container {
-  padding: 1rem;
+.titulo-seccion {
+  margin: 0 0 1rem 0;
+  text-align: left;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #0d47a1;
+  position: relative;
+  top: -8px; // prueba con -4px, -6px, -10px según lo que necesites
 }
+
+
+.notificaciones-tabla-container {
+  padding: 0 1rem 1.5rem;
+  margin-top: 0 !important;
+}
+
+
+
 
 table {
   width: 100%;

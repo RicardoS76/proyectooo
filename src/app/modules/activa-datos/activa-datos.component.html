@@ -1,111 +1,103 @@
-<section class="container mt-5 mb-5">
+<section class="container seccion-datos-viaje">
 
   <!-- Título e introducción -->
-  <h2 class="text-center mb-4">Activa tus datos estando de viaje</h2>
-  <p class="text-center mb-3">
+  <h2 class="mb-3">Activa tus datos estando de viaje</h2>
+  <p class="mb-2">
     El Roaming de datos es una función de los teléfonos móviles que permite conectarse a una red de datos celulares
     cuando el usuario se encuentra fuera del área de cobertura de su operador.
   </p>
-  <p class="text-center mb-5">
+  <p class="mb-4">
     Selecciona tu sistema operativo y sigue los pasos para activar el servicio de Roaming Internacional.
   </p>
 
-  <!-- Tarjetas de selección -->
-  <div class="d-flex justify-content-center flex-wrap gap-3 mb-5">
-    <mat-card *ngFor="let sistema of sistemas"
-              class="text-center p-3"
-              [ngClass]="{ 'selected': sistemaSeleccionado?.id === sistema.id }"
-              (click)="seleccionarSistema(sistema.id)"
-              style="width: 160px; cursor: pointer;">
-      <mat-card-content>
-        <img [src]="sistema.imagen"
-             [alt]="sistema.nombre"
-             class="img-fluid mb-2"
-             style="width: 64px;">
-        <h5 class="mt-2">{{ sistema.nombre }}</h5>
+  <!-- Layout horizontal: tarjetas + detalle -->
+<div class="d-flex flex-wrap flex-md-nowrap align-items-start gap-4 sistema-layout">
+  <!-- Columna izquierda: tarjetas -->
+  <div class="tarjetas-column">
+<mat-card *ngFor="let sistema of sistemas; let i = index"
+          class="sistema-card position-relative"
+          [ngClass]="{ 'selected': sistemaSeleccionado?.id === sistema.id }"
+          (click)="seleccionarSistema(sistema.id)">
 
-        <!-- Botones de edición solo para superAdmin -->
-        <div *ngIf="rolUsuario === 'superAdmin'"
-             class="mt-2 d-flex justify-content-center gap-2"
-             (click)="$event.stopPropagation()">
-          <button mat-icon-button color="primary"
-                  (click)="editarSistema(sistema)"
-                  matTooltip="Editar">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button color="warn"
-                  (click)="eliminarSistema(sistema.id)"
-                  matTooltip="Eliminar">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </div>
-      </mat-card-content>
-    </mat-card>
+
+  <mat-card-content>
+    <img [src]="sistema.imagen" [alt]="sistema.nombre" />
+    <h5>{{ sistema.nombre }}</h5>
+  </mat-card-content>
+
+  <!-- Globo con dirección dinámica -->
+  <div *ngIf="sistemaSeleccionado?.id === sistema.id"
+       class="globo-historieta"
+       #globo
+       [ngClass]="{
+         'globo-arriba': i === sistemas.length - 1,
+         'globo-centro': i !== 0 && i !== sistemas.length - 1,
+         'globo-abajo': i === 0
+       }">
+    <div class="globo-header">
+      <img [src]="sistema.imagen" class="globo-icono" />
+      <h4>{{ sistema.nombre }}</h4>
+    </div>
+    <div class="globo-cuerpo" [innerHTML]="contenidoSeguro"></div>
   </div>
 
-  <!-- Instrucciones del sistema seleccionado -->
-  <mat-card *ngIf="sistemaSeleccionado as sistema"
-            class="p-4 mb-5"
-            [ngClass]="{ 'fade-slide-in': animar }">
-    <div class="row align-items-center">
-      <!-- Imagen -->
-      <div class="col-md-4 text-center mb-3 mb-md-0">
-        <img *ngIf="sistema.imagen"
-             [src]="sistema.imagen"
-             [alt]="sistema.nombre"
-             class="img-fluid"
-             style="max-width: 100%; max-height: 250px;">
-      </div>
+  <!-- Botones de acción para superAdmin -->
+<div *ngIf="rolUsuario === 'superAdmin'" class="acciones-card">
+  <button mat-icon-button color="primary" (click)="editarSistema(sistema); $event.stopPropagation()" matTooltip="Editar">
+    <mat-icon>edit</mat-icon>
+  </button>
+  <button mat-icon-button color="warn" (click)="eliminarSistema(sistema.id); $event.stopPropagation()" matTooltip="Eliminar">
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>
 
-      <!-- Texto HTML -->
-      <div class="col-md-8">
-        <h4 class="mb-3">{{ sistema.nombre }}</h4>
-        <div [innerHTML]="contenidoSeguro"></div>
-      </div>
-    </div>
-  </mat-card>
+</mat-card>
 
-  <!-- Formulario de alta/edición solo para superAdmin -->
-  <mat-card *ngIf="rolUsuario === 'superAdmin'" class="p-4 mb-5" style="max-width: 700px; margin: auto;">
+</div>
+
+</div>
+
+  <!-- Formulario para superAdmin -->
+  <mat-card id="formularioSistema" *ngIf="rolUsuario === 'superAdmin'"  #formularioSistema class="p-4 mb-5 mt-4" style="max-width: 700px; margin: auto;">
     <h4 class="mb-3">{{ editando ? 'Editar sistema' : 'Agregar nuevo sistema operativo' }}</h4>
 
     <form (ngSubmit)="guardarSistema()" class="row g-3" enctype="multipart/form-data">
-      <!-- Nombre -->
       <div class="col-12">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Nombre</mat-label>
-          <input matInput [(ngModel)]="nuevoSistema.nombre" name="nombre" required>
+          <input matInput [(ngModel)]="nuevoSistema.nombre" name="nombre" required #inputNombre>
         </mat-form-field>
       </div>
 
-      <!-- Imagen -->
       <div class="col-12">
         <label class="form-label">Imagen</label>
         <input type="file" accept="image/*" (change)="onImagenSeleccionada($event)" class="form-control">
-        <img *ngIf="imagenTemporal" [src]="imagenTemporal" alt="preview" class="img-fluid mt-2" style="max-height: 100px;">
+        <img *ngIf="imagenTemporal"
+             [src]="imagenTemporal"
+             alt="preview"
+             class="img-fluid mt-2"
+             style="max-height: 100px;">
       </div>
 
-      <!-- Editor HTML manual (CKEditor via JS) -->
       <div class="col-12">
         <label class="form-label fw-bold mb-2">Instrucciones (Editor HTML)</label>
         <div id="editor" class="w-100" style="min-height: 200px;"></div>
       </div>
 
-      <!-- Botones -->
-<div class="mt-3">
-  <button mat-raised-button color="primary" type="submit">
-    <mat-icon class="me-1">{{ editando ? 'save' : 'cloud_upload' }}</mat-icon>
-    {{ editando ? 'Actualizar' : 'Agregar sistema' }}
-  </button>
+      <div class="mt-3">
+        <button mat-raised-button color="primary" type="submit">
+          <mat-icon class="me-1">{{ editando ? 'save' : 'cloud_upload' }}</mat-icon>
+          {{ editando ? 'Actualizar' : 'Agregar sistema' }}
+        </button>
 
-  <button *ngIf="editando" mat-button color="warn" type="button" (click)="cancelarEdicion()">
-    <mat-icon class="me-1">cancel</mat-icon>
-    Cancelar edición
-  </button>
-</div>
-
-
+        <button *ngIf="editando"
+                mat-button color="warn"
+                type="button"
+                (click)="cancelarEdicion()">
+          <mat-icon class="me-1">cancel</mat-icon>
+          Cancelar edición
+        </button>
+      </div>
     </form>
   </mat-card>
-
 </section>

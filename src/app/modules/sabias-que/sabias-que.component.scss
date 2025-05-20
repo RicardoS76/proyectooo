@@ -248,3 +248,30 @@ mat-paginator {
   10%, 90% { opacity: 1; transform: translateX(-50%) translateY(0); }
   100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
 }
+
+.sabias-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.sabias-card.clickable {
+  cursor: pointer;
+}
+
+.sabias-card.clickable:hover {
+  transform: scale(1.01);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.corner-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 20px;
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  padding: 4px;
+  z-index: 1;
+  color: #333;
+}

@@ -3,7 +3,7 @@ export interface ArchivoPaquete {
   titulo: string;
   descripcion: string;
   perfil: 'corporativo' | 'masivo';
-  categoria: 'sms' | 'voz' | 'datos' | 'maritimo-aereo';
+  categoria: 'sms' | 'voz' | 'datos' | 'aereo';
   url: string;
   fecha: string;
 }

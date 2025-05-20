@@ -22,6 +22,8 @@ export class PaquetesTarifasComponent implements OnInit {
   constructor(private tarifasService: PaquetesTarifasService) {}
 
   ngOnInit(): void {
+    console.log('DOCUMENTOS CATEGORÍA AÉREO (documentosOtros):', this.documentosOtros);
+
     this.rol = localStorage.getItem('rol') || 'masivo';
     this.documentos = this.tarifasService.getDocumentos();
     this.filtrarPorSecciones();
@@ -35,6 +37,6 @@ export class PaquetesTarifasComponent implements OnInit {
     this.documentosSMS = this.documentos.filter(d => d.categoria === 'sms' && filtro(d));
     this.documentosDatos = this.documentos.filter(d => d.categoria === 'datos' && filtro(d));
     this.documentosVoz = this.documentos.filter(d => d.categoria === 'voz' && filtro(d));
-    this.documentosOtros = this.documentos.filter(d => d.categoria === 'maritimo-aereo' && filtro(d));
+    this.documentosOtros = this.documentos.filter(d => d.categoria === 'aereo' && filtro(d));
   }
 }

@@ -74,21 +74,25 @@
 <!-- Tabs por categoría -->
 <mat-tab-group class="tarifas-tabs">
   <mat-tab label="Datos">
+    <br>
     <h2>Tarifas a Granel – Datos</h2>
     <ng-container *ngTemplateOutlet="tablaTemplate; context: { data: datosDS }"></ng-container>
   </mat-tab>
 
   <mat-tab label="Voz">
+    <br>
     <h2>Tarifas a Granel – Voz</h2>
     <ng-container *ngTemplateOutlet="tablaTemplate; context: { data: vozDS }"></ng-container>
   </mat-tab>
 
   <mat-tab label="SMS">
+    <br>
     <h2>Tarifas a Granel – SMS</h2>
     <ng-container *ngTemplateOutlet="tablaTemplate; context: { data: smsDS }"></ng-container>
   </mat-tab>
 
   <mat-tab label="Marítimo">
+    <br>
     <h2>Tarifas a Granel – Marítimo y Aéreo</h2>
     <ng-container *ngTemplateOutlet="tablaTemplate; context: { data: maritimoDS }"></ng-container>
   </mat-tab>

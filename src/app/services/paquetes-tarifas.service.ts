@@ -5,7 +5,7 @@ export interface TarifaDocumento {
   titulo: string;
   descripcion: string;
   perfil: 'corporativo' | 'masivo';
-  categoria: 'sms' | 'voz' | 'datos' | 'maritimo-aereo';
+  categoria: 'sms' | 'voz' | 'datos' | 'aereo';
   subcategoria?: 'prepago' | 'pospago' | 'controlado';
   archivo: string;
   fecha: string;
@@ -76,11 +76,11 @@ export class PaquetesTarifasService {
     },
     {
       id: '7',
-      titulo: 'Marítimo y Aéreo',
-      descripcion: 'Tarifas aplicables en zonas marítimas y aéreas.',
+      titulo: 'Aéreo',
+      descripcion: 'Tarifas aplicables en zonas aéreas internacionales.',
       perfil: 'corporativo',
-      categoria: 'maritimo-aereo',
-      archivo: 'assets/sd-web/docs/tarifas-maritimo-aereo.pdf',
+      categoria: 'aereo',
+      archivo: 'assets/sd-web/docs/tarifas-aereo.pdf',
       fecha: '2025-05-05'
     },
     {
@@ -110,8 +110,8 @@ export class PaquetesTarifasService {
   getDocumentosPorRutaCategoria(rutaCategoria: string): TarifaDocumento[] {
     const base = rutaCategoria.toLowerCase();
 
-    if (base === 'maritimo-aereo') {
-      return this.documentos.filter(d => d.categoria === 'maritimo-aereo');
+    if (base === 'aereo') {
+      return this.documentos.filter(d => d.categoria === 'aereo');
     }
 
     if (base === 'sms') {

@@ -1,4 +1,20 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ViewChildren,
+  ElementRef,
+  QueryList,
+  NgZone,
+  ChangeDetectorRef
+} from '@angular/core';
+import {
+  trigger,
+  style,
+  transition,
+  animate
+} from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SistemaOperativo } from '../../models/sistema-operativo.model';
@@ -20,6 +36,14 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
   selector: 'app-activa-datos',
   templateUrl: './activa-datos.component.html',
   styleUrls: ['./activa-datos.component.scss'],
+  animations: [
+    trigger('fadeSlideIn', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateX(30px)' }),
+        animate('300ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
+      ])
+    ])
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -39,6 +63,7 @@ export class ActivaDatosComponent implements OnInit, OnDestroy {
   animar = false;
 
   rolUsuario: string | null = null;
+  leftFlecha: number = 40;
 
   nuevoSistema: SistemaOperativo = {
     id: '',
@@ -53,20 +78,25 @@ export class ActivaDatosComponent implements OnInit, OnDestroy {
 
   editorInstance: any;
 
+  @ViewChild('tarjetasColumn', { static: true }) tarjetasColumn!: ElementRef;
+@ViewChildren('globo') globos!: QueryList<ElementRef>;
+@ViewChild('formularioSistema') formularioSistemaRef!: ElementRef;
+@ViewChild('inputNombre') inputNombreRef!: ElementRef;
+
   constructor(
     private sistemasService: SistemasOperativosService,
     private sanitizer: DomSanitizer,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
+
+
     this.rolUsuario = this.authService.getRol();
     this.sistemas = this.sistemasService.obtenerSistemas();
 
-    // Inicializar CKEditor manualmente
     setTimeout(() => {
       const editorElement = document.querySelector('#editor') as HTMLElement;
-
       if (editorElement) {
         ClassicEditor
           .create(editorElement, {
@@ -76,7 +106,6 @@ export class ActivaDatosComponent implements OnInit, OnDestroy {
               '|',
               'bold',
               'italic',
-              'underline',
               'bulletedList',
               'numberedList',
               'link',
@@ -85,17 +114,14 @@ export class ActivaDatosComponent implements OnInit, OnDestroy {
               'redo'
             ]
           })
-       .then((editor: any) => {
-
+          .then((editor: any) => {
             this.editorInstance = editor;
             editor.setData(this.nuevoSistema.instruccionesHTML || '');
-
             editor.model.document.on('change:data', () => {
               this.nuevoSistema.instruccionesHTML = editor.getData();
             });
           })
           .catch((err: any) => {
-
             console.error('Error al iniciar CKEditor:', err);
           });
       }
@@ -108,19 +134,42 @@ export class ActivaDatosComponent implements OnInit, OnDestroy {
     }
   }
 
-  seleccionarSistema(id: string): void {
-    this.animar = false;
-    this.sistemaSeleccionado = this.sistemas.find(s => s.id === id);
-    if (this.sistemaSeleccionado) {
-      this.contenidoSeguro = this.sanitizer.bypassSecurityTrustHtml(
-        this.sistemaSeleccionado.instruccionesHTML
-      );
-      this.mostrarInstrucciones = true;
-      setTimeout(() => {
-        this.animar = true;
-      }, 10);
+private scrollAlFormulario(): void {
+  setTimeout(() => {
+    const element = document.getElementById('formularioSistema');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+
+    this.inputNombreRef?.nativeElement.focus(); // Si quieres enfocar
+  }, 100);
+}
+
+
+
+seleccionarSistema(id: string): void {
+  this.animar = false;
+  this.sistemaSeleccionado = this.sistemas.find(s => s.id === id);
+
+  if (this.sistemaSeleccionado) {
+    this.contenidoSeguro = this.sanitizer.bypassSecurityTrustHtml(
+      this.sistemaSeleccionado.instruccionesHTML
+    );
+    this.mostrarInstrucciones = true;
+
+    setTimeout(() => {
+      this.animar = true;
+
+      const globoElement = this.globos.first?.nativeElement;
+      if (globoElement) {
+        globoElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center' // o 'start' si prefieres más arriba
+        });
+      }
+    }, 50);
   }
+}
 
   onImagenSeleccionada(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -160,36 +209,40 @@ export class ActivaDatosComponent implements OnInit, OnDestroy {
     this.cancelarEdicion();
   }
 
-  editarSistema(sistema: SistemaOperativo): void {
-    this.nuevoSistema = { ...sistema };
-    this.imagenTemporal = sistema.imagen || null;
-    this.editando = true;
-    this.sistemaEditandoId = sistema.id;
+editarSistema(sistema: SistemaOperativo): void {
+  this.nuevoSistema = { ...sistema };
+  this.imagenTemporal = sistema.imagen || null;
+  this.editando = true;
+  this.sistemaEditandoId = sistema.id;
 
-    setTimeout(() => {
-      if (this.editorInstance) {
-        this.editorInstance.setData(this.nuevoSistema.instruccionesHTML || '');
-      }
-    }, 0);
-  }
+  setTimeout(() => {
+    if (this.editorInstance) {
+      this.editorInstance.setData(this.nuevoSistema.instruccionesHTML || '');
+    }
+    this.scrollAlFormulario(); // 👈 Scroll al formulario
+  }, 0);
+}
 
-  cancelarEdicion(): void {
-    this.editando = false;
-    this.sistemaEditandoId = null;
-    this.imagenTemporal = null;
-    this.nuevoSistema = {
-      id: '',
-      nombre: '',
-      imagen: '',
-      instruccionesHTML: ''
-    };
 
-    setTimeout(() => {
-      if (this.editorInstance) {
-        this.editorInstance.setData('');
-      }
-    }, 0);
-  }
+cancelarEdicion(): void {
+  this.editando = false;
+  this.sistemaEditandoId = null;
+  this.imagenTemporal = null;
+  this.nuevoSistema = {
+    id: '',
+    nombre: '',
+    imagen: '',
+    instruccionesHTML: ''
+  };
+
+  setTimeout(() => {
+    if (this.editorInstance) {
+      this.editorInstance.setData('');
+    }
+    this.scrollAlFormulario(); // 👈 Scroll al formulario
+  }, 0);
+}
+
 
   eliminarSistema(id: string): void {
     const confirmado = confirm('¿Estás seguro de eliminar este sistema?');
@@ -207,4 +260,6 @@ export class ActivaDatosComponent implements OnInit, OnDestroy {
       this.cancelarEdicion();
     }
   }
+
+  
 }

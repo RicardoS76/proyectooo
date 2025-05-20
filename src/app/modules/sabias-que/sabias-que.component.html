@@ -55,30 +55,37 @@
 
   <!-- 📄 Tabs -->
   <mat-tab-group>
+    
     <mat-tab label="Comunicados">
+      <br>
       <div class="row mt-4">
-        <div class="col-md-4 mb-4" *ngFor="let doc of comunicadosPaginados"
-             [hidden]="documentosOcultos.includes(doc.id)">
-          <mat-card class="sabias-card"
-                    [class.clickable]="!rolEsAdmin() && doc.url"
-                    (click)="!rolEsAdmin() && doc.url ? abrirEnlace(doc.url) : abrirDetalle(doc)">
-            <img mat-card-image [src]="doc.imagenUrl" alt="{{ doc.titulo }}">
-            <mat-card-content>
-              <h5 class="sabias-title">{{ doc.titulo }}</h5>
-              <p class="sabias-description text-truncate">{{ doc.descripcion }}</p>
-              <small class="text-muted">{{ doc.fecha }}</small>
+        <ng-container *ngFor="let doc of comunicadosPaginados">
+          <div class="col-md-4 mb-4" [hidden]="documentosOcultos.includes(doc.id)">
+            <mat-card class="sabias-card clickable" (click)="manejarClick(doc)">
+              <img mat-card-image [src]="doc.imagenUrl" alt="{{ doc.titulo }}">
+              <mat-card-content>
+                <h5 class="sabias-title">{{ doc.titulo }}</h5>
+                <p class="sabias-description text-truncate">{{ doc.descripcion }}</p>
+                <small class="text-muted">{{ doc.fecha }}</small>
 
-              <div *ngIf="rolEsAdmin()" class="mt-2 text-end">
-                <button mat-icon-button color="primary" (click)="editarDirecto(doc, $event)" matTooltip="Editar">
-                  <mat-icon>edit</mat-icon>
-                </button>
-                <button mat-icon-button color="warn" (click)="eliminarDirecto(doc, $event)" matTooltip="Eliminar">
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        </div>
+                <div *ngIf="rolEsAdmin()" class="mt-2 text-end" (click)="$event.stopPropagation()">
+                  <button mat-icon-button color="primary" (click)="editarDirecto(doc, $event)" matTooltip="Editar">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="eliminarDirecto(doc, $event)" matTooltip="Eliminar">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+
+                <!-- Ícono de acción -->
+                <mat-icon class="corner-icon"
+                          matTooltip="{{ doc.url && doc.url.trim() !== '' ? 'Este comunicado redirige a un enlace' : 'Este comunicado se visualiza como modal' }}">
+                  {{ doc.url && doc.url.trim() !== '' ? 'open_in_new' : 'aspect_ratio' }}
+                </mat-icon>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </ng-container>
       </div>
       <mat-paginator [length]="comunicados.length"
                      [pageSize]="pageSize"
@@ -88,29 +95,34 @@
     </mat-tab>
 
     <mat-tab label="Mes Anterior">
+      <br>
       <div class="row mt-4">
-        <div class="col-md-4 mb-4" *ngFor="let doc of mesAnteriorPaginados"
-             [hidden]="documentosOcultos.includes(doc.id)">
-          <mat-card class="sabias-card"
-                    [class.clickable]="!rolEsAdmin() && doc.url"
-                    (click)="!rolEsAdmin() && doc.url ? abrirEnlace(doc.url) : abrirDetalle(doc)">
-            <img mat-card-image [src]="doc.imagenUrl" alt="{{ doc.titulo }}">
-            <mat-card-content>
-              <h5 class="sabias-title">{{ doc.titulo }}</h5>
-              <p class="sabias-description text-truncate">{{ doc.descripcion }}</p>
-              <small class="text-muted">{{ doc.fecha }}</small>
+        <ng-container *ngFor="let doc of mesAnteriorPaginados">
+          <div class="col-md-4 mb-4" [hidden]="documentosOcultos.includes(doc.id)">
+            <mat-card class="sabias-card clickable" (click)="manejarClick(doc)">
+              <img mat-card-image [src]="doc.imagenUrl" alt="{{ doc.titulo }}">
+              <mat-card-content>
+                <h5 class="sabias-title">{{ doc.titulo }}</h5>
+                <p class="sabias-description text-truncate">{{ doc.descripcion }}</p>
+                <small class="text-muted">{{ doc.fecha }}</small>
 
-              <div *ngIf="rolEsAdmin()" class="mt-2 text-end">
-                <button mat-icon-button color="primary" (click)="editarDirecto(doc, $event)" matTooltip="Editar">
-                  <mat-icon>edit</mat-icon>
-                </button>
-                <button mat-icon-button color="warn" (click)="eliminarDirecto(doc, $event)" matTooltip="Eliminar">
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        </div>
+                <div *ngIf="rolEsAdmin()" class="mt-2 text-end" (click)="$event.stopPropagation()">
+                  <button mat-icon-button color="primary" (click)="editarDirecto(doc, $event)" matTooltip="Editar">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="eliminarDirecto(doc, $event)" matTooltip="Eliminar">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+
+                <mat-icon class="corner-icon"
+                          matTooltip="{{ doc.url && doc.url.trim() !== '' ? 'Este comunicado redirige a un enlace' : 'Este comunicado se visualiza como modal' }}">
+                  {{ doc.url && doc.url.trim() !== '' ? 'open_in_new' : 'aspect_ratio' }}
+                </mat-icon>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </ng-container>
       </div>
       <mat-paginator [length]="mesAnterior.length"
                      [pageSize]="pageSize"
@@ -120,29 +132,34 @@
     </mat-tab>
 
     <mat-tab label="2024">
+      <br>
       <div class="row mt-4">
-        <div class="col-md-4 mb-4" *ngFor="let doc of anio2024Paginados"
-             [hidden]="documentosOcultos.includes(doc.id)">
-          <mat-card class="sabias-card"
-                    [class.clickable]="!rolEsAdmin() && doc.url"
-                    (click)="!rolEsAdmin() && doc.url ? abrirEnlace(doc.url) : abrirDetalle(doc)">
-            <img mat-card-image [src]="doc.imagenUrl" alt="{{ doc.titulo }}">
-            <mat-card-content>
-              <h5 class="sabias-title">{{ doc.titulo }}</h5>
-              <p class="sabias-description text-truncate">{{ doc.descripcion }}</p>
-              <small class="text-muted">{{ doc.fecha }}</small>
+        <ng-container *ngFor="let doc of anio2024Paginados">
+          <div class="col-md-4 mb-4" [hidden]="documentosOcultos.includes(doc.id)">
+            <mat-card class="sabias-card clickable" (click)="manejarClick(doc)">
+              <img mat-card-image [src]="doc.imagenUrl" alt="{{ doc.titulo }}">
+              <mat-card-content>
+                <h5 class="sabias-title">{{ doc.titulo }}</h5>
+                <p class="sabias-description text-truncate">{{ doc.descripcion }}</p>
+                <small class="text-muted">{{ doc.fecha }}</small>
 
-              <div *ngIf="rolEsAdmin()" class="mt-2 text-end">
-                <button mat-icon-button color="primary" (click)="editarDirecto(doc, $event)" matTooltip="Editar">
-                  <mat-icon>edit</mat-icon>
-                </button>
-                <button mat-icon-button color="warn" (click)="eliminarDirecto(doc, $event)" matTooltip="Eliminar">
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        </div>
+                <div *ngIf="rolEsAdmin()" class="mt-2 text-end" (click)="$event.stopPropagation()">
+                  <button mat-icon-button color="primary" (click)="editarDirecto(doc, $event)" matTooltip="Editar">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="eliminarDirecto(doc, $event)" matTooltip="Eliminar">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+
+                <mat-icon class="corner-icon"
+                          matTooltip="{{ doc.url && doc.url.trim() !== '' ? 'Este comunicado redirige a un enlace' : 'Este comunicado se visualiza como modal' }}">
+                  {{ doc.url && doc.url.trim() !== '' ? 'open_in_new' : 'aspect_ratio' }}
+                </mat-icon>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </ng-container>
       </div>
       <mat-paginator [length]="anio2024.length"
                      [pageSize]="pageSize"

@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 
 import { SabiasQueDocumento } from '../../models/sabias-que.model';
 import { SabiasQueService } from '../../services/sabias-que.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-sabias-que',
@@ -24,7 +25,8 @@ import { SabiasQueService } from '../../services/sabias-que.service';
     MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTooltipModule
   ],
   templateUrl: './sabias-que.component.html',
   styleUrls: ['./sabias-que.component.scss']
@@ -184,4 +186,12 @@ export class SabiasQueComponent implements OnInit {
       this.mostrarAlerta('success', 'Comunicado eliminado correctamente.');
     }
   }
+  manejarClick(doc: SabiasQueDocumento): void {
+  if (doc.url && doc.url.trim() !== '') {
+    this.abrirEnlace(doc.url);
+  } else {
+    this.abrirDetalle(doc);
+  }
+}
+
 }
