@@ -30,8 +30,6 @@ export const routes: Routes = [
     component: NavbarLateralComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: 'admin', component: AdminComponent },
-      { path: 'dashboard', component: DashboardComponent },
       { path: 'principal', component: PrincipalPage },
 
       // 🔵 Nuevas rutas de Notificaciones

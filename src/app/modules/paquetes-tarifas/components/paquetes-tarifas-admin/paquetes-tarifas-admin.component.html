@@ -21,8 +21,7 @@
 
 <!-- Formulario de subida (solo para superAdmin) -->
 <ng-container *ngIf="rol === 'superAdmin'">
-<section class="admin-form" #formulario>
-
+  <section class="admin-form" #formulario>
     <h2>Subir Nuevo Paquete o Tarifa</h2>
 
     <!-- Fila: Título y Perfil -->
@@ -80,18 +79,18 @@
       </div>
     </div>
 
-<div class="mt-3">
-  <button mat-raised-button color="primary" (click)="modoEdicion ? actualizarArchivo() : subirArchivo()">
-    <mat-icon class="me-1">{{ modoEdicion ? 'save' : 'cloud_upload' }}</mat-icon>
-    {{ modoEdicion ? 'Actualizar Archivo' : 'Subir Archivo' }}
-  </button>
+    <!-- Botones -->
+    <div class="mt-3">
+      <button mat-raised-button color="primary" (click)="modoEdicion ? actualizarArchivo() : subirArchivo()">
+        <mat-icon class="me-1">{{ modoEdicion ? 'save' : 'cloud_upload' }}</mat-icon>
+        {{ modoEdicion ? 'Actualizar Archivo' : 'Subir Archivo' }}
+      </button>
 
-  <button *ngIf="modoEdicion" mat-button type="button" class="ms-2" color="warn" (click)="resetFormulario()">
-    <mat-icon class="me-1">cancel</mat-icon>
-    Cancelar edición
-  </button>
-</div>
-
+      <button *ngIf="modoEdicion" mat-button type="button" class="ms-2" color="warn" (click)="resetFormulario()">
+        <mat-icon class="me-1">cancel</mat-icon>
+        Cancelar edición
+      </button>
+    </div>
   </section>
 </ng-container>
 
@@ -104,7 +103,6 @@
 
 <!-- Tabs por perfil -->
 <mat-tab-group class="admin-table mt-5">
-
   <!-- Tab Corporativo -->
   <mat-tab label="Corporativo">
     <h2>Archivos Corporativo</h2>
@@ -138,36 +136,17 @@
       <ng-container matColumnDef="acciones">
         <th mat-header-cell *matHeaderCellDef>Acciones</th>
         <td mat-cell *matCellDef="let a">
-          <div class="acciones-botones">
-            <!-- Ver con Google Docs Viewer -->
-<button mat-button color="accent" *ngIf="rol === 'superAdmin'" (click)="cargarParaActualizar(a)">
-  <mat-icon class="me-1">edit</mat-icon> Actualizar
-</button>
-
-
-            <!-- Descargar -->
-            <a mat-button color="primary" [href]="a.archivo" download>
-              <mat-icon class="me-1">download</mat-icon> Descargar
-            </a>
-
-            <!-- Eliminar -->
-            <button mat-button color="warn" *ngIf="rol === 'superAdmin'" (click)="pedirConfirmacion(a.id)">
-              <mat-icon class="me-1">delete</mat-icon> Eliminar
-            </button>
-          </div>
+          <button mat-icon-button [matMenuTriggerFor]="menuAcciones" [matMenuTriggerData]="{ archivo: a }">
+            <mat-icon>more_vert</mat-icon>
+          </button>
         </td>
       </ng-container>
-
 
       <tr mat-header-row *matHeaderRowDef="['titulo','descripcion','categoria','subcategoria','fecha','acciones']"></tr>
       <tr mat-row *matRowDef="let row; columns: ['titulo','descripcion','categoria','subcategoria','fecha','acciones']"></tr>
     </table>
 
-    <mat-paginator #corporativoPaginator
-                   [pageSize]="5"
-                   [pageSizeOptions]="[5, 10, 20]"
-                   showFirstLastButtons>
-    </mat-paginator>
+    <mat-paginator #corporativoPaginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
     <div *ngIf="archivosCorporativoDS.data.length === 0" class="no-data-message">
       📄 No hay archivos corporativo cargados.
@@ -207,17 +186,9 @@
       <ng-container matColumnDef="acciones">
         <th mat-header-cell *matHeaderCellDef>Acciones</th>
         <td mat-cell *matCellDef="let a">
-          <div class="acciones-botones">
-            <a mat-button color="accent" [href]="a.archivo" target="_blank" rel="noopener">
-              <mat-icon class="me-1">visibility</mat-icon> Ver
-            </a>
-            <a mat-button color="primary" [href]="a.archivo" download>
-              <mat-icon class="me-1">download</mat-icon> Descargar
-            </a>
-            <button mat-button color="warn" *ngIf="rol === 'superAdmin'" (click)="pedirConfirmacion(a.id)">
-              <mat-icon class="me-1">delete</mat-icon> Eliminar
-            </button>
-          </div>
+          <button mat-icon-button [matMenuTriggerFor]="menuAcciones" [matMenuTriggerData]="{ archivo: a }">
+            <mat-icon>more_vert</mat-icon>
+          </button>
         </td>
       </ng-container>
 
@@ -225,14 +196,27 @@
       <tr mat-row *matRowDef="let row; columns: ['titulo','descripcion','categoria','subcategoria','fecha','acciones']"></tr>
     </table>
 
-    <mat-paginator #masivoPaginator
-                   [pageSize]="5"
-                   [pageSizeOptions]="[5, 10, 20]"
-                   showFirstLastButtons>
-    </mat-paginator>
+    <mat-paginator #masivoPaginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
     <div *ngIf="archivosMasivoDS.data.length === 0" class="no-data-message">
       📄 No hay archivos masivo cargados.
     </div>
   </mat-tab>
 </mat-tab-group>
+
+<!-- Menú desplegable para acciones -->
+<mat-menu #menuAcciones="matMenu">
+  <ng-template matMenuContent let-archivo="archivo">
+    <div class="acciones-botones p-2 d-flex flex-column align-items-start">
+      <a mat-button color="primary" [href]="archivo.archivo" download>
+        <mat-icon class="me-1">download</mat-icon> Descargar
+      </a>
+      <button mat-button color="accent" *ngIf="rol === 'superAdmin'" (click)="cargarParaActualizar(archivo)">
+        <mat-icon class="me-1">edit</mat-icon> Actualizar
+      </button>
+      <button mat-button color="warn" *ngIf="rol === 'superAdmin'" (click)="pedirConfirmacion(archivo.id)">
+        <mat-icon class="me-1">delete</mat-icon> Eliminar
+      </button>
+    </div>
+  </ng-template>
+</mat-menu>

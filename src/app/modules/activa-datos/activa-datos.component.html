@@ -92,12 +92,19 @@
       </div>
 
       <!-- Botones -->
-      <div class="col-12 text-end mt-3">
-        <button mat-flat-button color="primary" type="submit">
-          {{ editando ? 'Actualizar' : 'Agregar sistema' }}
-        </button>
-        <button *ngIf="editando" mat-button color="warn" type="button" (click)="cancelarEdicion()">Cancelar</button>
-      </div>
+<div class="mt-3">
+  <button mat-raised-button color="primary" type="submit">
+    <mat-icon class="me-1">{{ editando ? 'save' : 'cloud_upload' }}</mat-icon>
+    {{ editando ? 'Actualizar' : 'Agregar sistema' }}
+  </button>
+
+  <button *ngIf="editando" mat-button color="warn" type="button" (click)="cancelarEdicion()">
+    <mat-icon class="me-1">cancel</mat-icon>
+    Cancelar edición
+  </button>
+</div>
+
+
     </form>
   </mat-card>
 

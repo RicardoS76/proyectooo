@@ -26,6 +26,7 @@ import { ArchivoService } from '../../services/archivo.service';
 import { Archivo } from '../../models/archivo.model';
 import { AuthService } from '../../services/auth.service';
 import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-gerencia-admin-ri',
@@ -44,7 +45,8 @@ import { MatInputModule } from '@angular/material/input';
     MatTooltipModule,
     MatSelectModule,
     MatOptionModule,
-    MatInputModule
+    MatInputModule,
+    MatMenuModule
   ],
   templateUrl: './gerencia-admin-ri.component.html',
   styleUrls: ['./gerencia-admin-ri.component.scss']

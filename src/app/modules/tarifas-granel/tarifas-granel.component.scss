@@ -1,17 +1,17 @@
 /* Encabezado simple y profesional */
 .tarifas-header-simple {
   padding: 2rem 2rem 1.5rem;
-  border: 1px solid #b3b3b3;
+  //border: 1px solid #b2b2b2;
   border-radius: 12px;
-  background-color: #e6e6e6;
+  //background-color: #ffffff;
   margin-bottom: 2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  //box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 
   h1 {
     font-size: 1.85rem;
     font-weight: 700;
     margin: 0 0 0.5rem;
-    color: #1d1d1f;
+    color: #0d47a1;
   }
 
   p {
@@ -44,7 +44,7 @@
   h2 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: #1d1d1f;
+    color: #0d47a1;
   }
 
   .no-data-message {

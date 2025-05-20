@@ -40,7 +40,7 @@ html, body {
   top: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(to left, #004080, #3399ff);
+  background: linear-gradient(to left, #004080, #004080);
   color: white;
   z-index: 1040;
   display: flex;
@@ -70,7 +70,7 @@ html, body {
 }
 
 .sidebar-gradient {
-  background: linear-gradient(to bottom, #3399ff, #004080);
+  background: linear-gradient(to bottom, #004080, #004080);
   color: white;
 }
 
@@ -119,7 +119,7 @@ html, body {
 .content-area {
   flex: 1;
   overflow-y: auto;
-  background-color: #fffcf4;
+  background-color: #f5f7fa;
   padding: 1rem;
   height: 100vh;
 }
@@ -127,7 +127,7 @@ html, body {
 /* 🔻 Footer (NO FIXED) */
 .footer-bar {
   height: 90px;
-  background: linear-gradient(to right, #004080, #039be5);
+  background: linear-gradient(to right, #004080, #004080);
   display: flex;
   align-items: center;
   justify-content: center;

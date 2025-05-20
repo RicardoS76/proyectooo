@@ -65,53 +65,22 @@
       </div>
     </mat-tab>
   </mat-tab-group>
+<div class="carousel-index-nav" *ngIf="items.length > 1 && tabGroup">
+  <button *ngFor="let slide of items; let i = index"
+          [class.active]="tabGroup.selectedIndex === i"
+          (click)="tabGroup.selectedIndex = i"
+          [attr.aria-label]="'Seleccionar slide ' + (i + 1)">
+  </button>
+</div>
+
+
+
+
 
 <div *ngIf="items.length === 0" class="no-slides-msg">
   <mat-icon>slideshow</mat-icon>
   <p>No hay contenido en el carrusel actualmente. Agrega un nuevo slide para comenzar.</p>
 </div>
-
-<!-- 🎛️ Dirección centrada sobre el carrusel -->
-<div class="carousel-direction-wrapper text-center mt-4" *ngIf="rolUsuario === 'superAdmin'">
-  <mat-form-field appearance="outline">
-    <mat-label>Dirección de rotación</mat-label>
-    <mat-select [(ngModel)]="direccionCarrusel" (selectionChange)="cambiarDireccion()">
-      <mat-option value="derecha">Derecha →</mat-option>
-      <mat-option value="izquierda">← Izquierda</mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
-
-<!-- 🧩 Tabla de reordenamiento de slides -->
-<div class="slide-reorder-table" *ngIf="rolUsuario === 'superAdmin'">
-  <h4>Reordenar Slides</h4>
-
-  <table class="mat-elevation-z1 reorder-table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Título</th>
-        <th>Ubicar en posición</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of items; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{ item.titulo || 'Sin título' }}</td>
-        <td>
-          <mat-form-field appearance="fill" class="orden-dropdown">
-            <mat-select [value]="i" (selectionChange)="cambiarOrdenSlide(i, $event.value)">
-              <mat-option *ngFor="let pos of items; let idx = index" [value]="idx">
-                {{ idx + 1 }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
 
   <div class="pause-container">
     <button mat-mini-fab color="warn" (click)="togglePause()">
@@ -121,10 +90,10 @@
 </div>
 
 <!-- ➕ Nuevo slide solo para superAdmin -->
-<section class="nuevo-slide-form carrusel-admin" *ngIf="rolUsuario === 'superAdmin'">
-  <h3>Agregar nuevo slide</h3>
+<section class="admin-form" *ngIf="rolUsuario === 'superAdmin'">
+  <h4>Agregar nuevo slide</h4>
 
-  <div class="form-row">
+  <div class="form-row-horizontal">
     <mat-form-field appearance="outline" class="half-width">
       <mat-label>Título</mat-label>
       <input matInput [(ngModel)]="nuevoSlide.titulo" name="titulo">
@@ -136,7 +105,7 @@
     </mat-form-field>
   </div>
 
-  <div class="form-row">
+  <div class="form-row-horizontal">
     <mat-form-field appearance="outline" class="half-width">
       <mat-label>Fecha de expiración</mat-label>
       <input matInput [matDatepicker]="expPicker" [(ngModel)]="nuevoSlide.fechaExpiracion" name="fechaExpiracion">
@@ -145,21 +114,21 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="half-width mt-exposicion">
-      <mat-label>Fecha de exposición en el carrusel</mat-label>
+      <mat-label>Fecha de exposición</mat-label>
       <input matInput [matDatepicker]="expCarruselPicker" [(ngModel)]="nuevoSlide.fechaExposicion" name="fechaExposicion">
       <mat-datepicker-toggle matSuffix [for]="expCarruselPicker"></mat-datepicker-toggle>
       <mat-datepicker #expCarruselPicker></mat-datepicker>
     </mat-form-field>
   </div>
 
-  <div class="form-row">
+  <div class="full-width">
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Enlace opcional (URL)</mat-label>
       <input matInput [(ngModel)]="nuevoSlide.link" name="link" type="url" placeholder="https://...">
     </mat-form-field>
   </div>
 
-  <div class="upload-section">
+  <div class="full-width upload-section">
     <label class="upload-label">Imagen (temporal)</label>
     <input type="file" (change)="onNuevaImagenSeleccionada($event)" accept="image/*">
     <img *ngIf="nuevaImagenTemporal"
@@ -168,9 +137,9 @@
          style="max-width: 100%; margin-top: 1rem; border-radius: 8px;">
   </div>
 
-  <div class="mt-3">
-    <button mat-raised-button color="primary" (click)="confirmarNuevoSlide()">
-      <mat-icon>check</mat-icon>
+  <div class="full-width text-end mt-3">
+    <button type="button" class="btn-primary d-inline-flex align-items-center gap-1" (click)="confirmarNuevoSlide()">
+      <mat-icon class="me-1">check</mat-icon>
       Confirmar nuevo slide
     </button>
   </div>
@@ -189,15 +158,12 @@
       </mat-card-content>
       <mat-card-actions class="card-actions">
         <ng-container *ngIf="rolUsuario === 'superAdmin'; else botonNormal">
-          <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Hipervínculo</mat-label>
-            <input matInput [(ngModel)]="guide.link" type="url" placeholder="https://...">
-          </mat-form-field>
-          <a mat-raised-button color="accent"
-             class="know-more-btn mt-2"
+
+          <a mat-raised-button color="primary"
+             class="know-more-btn"
              [href]="guide.link"
              target="_blank" rel="noopener noreferrer">
-            Ir al enlace
+            Conoce más
           </a>
         </ng-container>
         <ng-template #botonNormal>

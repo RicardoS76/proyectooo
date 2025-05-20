@@ -19,6 +19,7 @@ import { GuidesService } from '../../services/guides.service';
 import { Guide } from '../../models/guide.model';
 
 import { trigger, style, animate, transition } from '@angular/animations';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-principal',
@@ -36,7 +37,8 @@ import { trigger, style, animate, transition } from '@angular/animations';
     MatSelectModule,
     MatDividerModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatTooltip,
   ],
   templateUrl: './principal.page.html',
   styleUrls: ['./principal.page.scss'],

@@ -12,6 +12,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { PaquetesTarifasService, TarifaDocumento } from '../../../../services/paquetes-tarifas.service';
+import { MatMenuModule } from '@angular/material/menu';
 
 // ... tus imports no cambian ...
 
@@ -30,7 +31,8 @@ import { PaquetesTarifasService, TarifaDocumento } from '../../../../services/pa
     MatButtonModule,
     MatTabsModule,
     MatIconModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatMenuModule
   ]
 })
 export class PaquetesTarifasAdminComponent implements OnInit, AfterViewInit {

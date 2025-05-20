@@ -105,11 +105,27 @@ h4 {
 }
 
 /* === TABLAS (si decides conservarlas en admin) === */
-.acciones-botones {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
+/* === BOTONES DE ACCIÓN ESTANDARIZADOS === */
+  .acciones-botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+
+    a,
+    button {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+      button:hover .hover-underline,
+  a:hover .hover-underline {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  }
+
 
 /* === UTILIDADES === */
 .mt-3 {
@@ -139,3 +155,4 @@ h4 {
 .mb-5 {
   margin-bottom: 3rem;
 }
+

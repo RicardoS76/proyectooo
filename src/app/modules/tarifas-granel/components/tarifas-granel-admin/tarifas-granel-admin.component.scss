@@ -1,47 +1,84 @@
-/* Formulario de subida */
+/* ==== FORMULARIO GENERAL (Compactado) ==== */
 .admin-form {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 1.5rem;
-  border: 1px solid #e0e0e0;
+  background-color: #ffffff;
   border-radius: 12px;
-  background-color: #fdfdfd;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem auto;
+  max-width: 700px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
   .full-width {
     width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
   }
 
   button {
-    margin-top: 1rem;
+    margin-top: 0.75rem;
   }
 }
 
-/* Alertas */
+/* ==== BOTÓN PRINCIPAL ==== */
+.btn-primary {
+  background-color: #1976d2;
+  color: white;
+  padding: 0.35rem 0.8rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #125ea2;
+  }
+
+  mat-icon {
+    font-size: 18px;
+  }
+}
+
+/* ==== ÍCONO ESPACIADO ==== */
+.me-1 {
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* ==== ALERTAS ==== */
 .alert {
-  position: fixed; /* Cambiado de absolute a fixed */
+  position: fixed;
   top: 1rem;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 2000; /* Asegura visibilidad por encima del header */
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
+  z-index: 2000;
+  width: auto;
+  max-width: 90%;
+  padding: 10px 16px;
+  text-align: center;
+  border-radius: 8px;
   font-weight: 500;
   animation: fadeIn 0.3s ease-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 
   &.alert-success {
-    background-color: #d0f0d2;
-    color: #256029;
+    background-color: #d4edda;
+    color: #155724;
   }
 
   &.alert-danger {
-    background-color: #fddede;
-    color: #8b1e1e;
+    background-color: #f8d7da;
+    color: #721c24;
   }
 }
 
-/* Animación para la alerta */
+/* ==== ANIMACIÓN ==== */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -53,46 +90,51 @@
   }
 }
 
-/* Fondo oscuro */
+/* ==== FONDO DE CONFIRMACIÓN ==== */
 .backdrop {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(33, 33, 33, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 998;
 }
 
-/* Tarjeta de confirmación */
+/* ==== TARJETA DE CONFIRMACIÓN ==== */
 .confirm-card {
   position: fixed;
-  top: 40%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 1.5rem;
+  background: #ffffff;
+  border: 1px solid #cfd8dc;
   border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
-  z-index: 1999;
+  padding: 16px 24px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1051;
+  text-align: center;
+  font-weight: 500;
 
   .confirm-text {
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-    font-weight: 500;
+    font-size: 17px;
+    color: #004080;
+    margin-bottom: 16px;
   }
 
   .confirm-buttons {
     display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
+    justify-content: center;
+    gap: 10px;
   }
 }
 
-/* Tabla y secciones de documentos */
+/* ==== TABLAS DE ADMINISTRACIÓN ==== */
 .admin-table {
   max-width: 1000px;
-  margin: 2rem auto;
+  margin: 1.5rem auto;
 
   table {
     width: 100%;
@@ -104,37 +146,60 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    align-items: center;
 
-    a, button {
+    a[mat-button],
+    button[mat-button] {
       display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
-    }
+      font-weight: 600;
+      text-transform: none;
+      font-size: 0.9rem;
+      gap: 4px;
 
-    mat-icon {
-      font-size: 18px;
+      mat-icon {
+        font-size: 18px;
+        margin-right: 4px;
+      }
     }
   }
 
   .no-data-message {
     text-align: center;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     font-style: italic;
     color: #757575;
   }
 }
 
-/* Estilo de tabs */
+/* ==== TABS ==== */
 .mat-tab-group {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 
+/* ==== FILAS DE FORMULARIO (Compactado) ==== */
 .form-row-horizontal {
   display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
 
   .half-width {
-    flex: 1;
+    flex: 1 1 45%;
+    min-width: 220px;
   }
+}
+
+/* ==== CONTENIDO GENERAL ==== */
+.layout-content {
+  margin-top: 72px;
+}
+
+/* ==== ESTILOS PARA CAMPOS DE Angular Material (opcional) ==== */
+::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0.25rem;
+}
+
+::ng-deep .mat-form-field-infix {
+  padding: 0.4rem 0;
 }

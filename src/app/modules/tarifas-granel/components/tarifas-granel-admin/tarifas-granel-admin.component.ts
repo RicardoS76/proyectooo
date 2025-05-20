@@ -14,6 +14,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { TarifaGranelDocumento, TarifasGranelService } from '../../../../services/tarifas-granel.service';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-tarifas-granel-admin',
@@ -30,7 +31,8 @@ import { TarifaGranelDocumento, TarifasGranelService } from '../../../../service
     MatButtonModule,
     MatTabsModule,
     MatIconModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatMenuModule
   ]
 })
 export class TarifasGranelAdminComponent implements OnInit, AfterViewInit {

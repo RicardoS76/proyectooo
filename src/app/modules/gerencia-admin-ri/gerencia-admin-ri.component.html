@@ -21,7 +21,6 @@
 
 <!-- Formulario de subida de archivo -->
 <section class="admin-form mt-4 mb-5" *ngIf="rol() === 'superAdmin' || rol() === 'auditor'">
-
   <h2 class="mb-3">Agregar nuevo archivo</h2>
 
   <div class="form-row-horizontal d-flex gap-4 flex-wrap">
@@ -53,7 +52,7 @@
   </div>
 
   <button mat-raised-button color="primary" (click)="agregarArchivoManual(categoriaSeleccionada)">
-    <mat-icon class="me-1">add</mat-icon> Agregar archivo
+    <mat-icon class="me-1">cloud_upload</mat-icon> Agregar archivo
   </button>
 </section>
 
@@ -64,17 +63,6 @@
 
   <mat-tab-group>
     <mat-tab *ngFor="let categoria of categoriasDisponibles()" [label]="categoria.toUpperCase()">
-
-      <div class="mb-3 text-end" *ngIf="puedeSubir(categoria)">
-        <button mat-stroked-button color="primary" (click)="abrirInputCategoria(categoria)">
-          <mat-icon class="me-1">upload</mat-icon> Subir archivo
-        </button>
-        <input
-          type="file"
-          [attr.data-categoria]="categoria"
-          hidden
-          (change)="subirArchivo($event, categoria)" />
-      </div>
 
       <!-- Tabla de archivos -->
       <table mat-table [dataSource]="dataSourceMap[categoria]" class="mat-elevation-z8 full-width mt-3">
@@ -97,26 +85,13 @@
           <td mat-cell *matCellDef="let archivo">{{ archivo.tamanoMB }} MB</td>
         </ng-container>
 
-        <!-- Acciones -->
+        <!-- Acciones con menú -->
         <ng-container matColumnDef="acciones">
           <th mat-header-cell *matHeaderCellDef>Acciones</th>
           <td mat-cell *matCellDef="let archivo">
-            <div class="d-flex gap-2">
-              <button mat-icon-button color="primary" (click)="descargarArchivo(archivo)" matTooltip="Descargar">
-                <mat-icon>download</mat-icon>
-              </button>
-
-              <label>
-                <input type="file" hidden (change)="actualizarArchivo($event, archivo)">
-                <button mat-icon-button color="accent" matTooltip="Reemplazar">
-                  <mat-icon>edit</mat-icon>
-                </button>
-              </label>
-
-              <button mat-icon-button color="warn" (click)="pedirConfirmacion(archivo.nombre, categoria)" matTooltip="Eliminar">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </div>
+            <button mat-icon-button [matMenuTriggerFor]="menuAcciones" [matMenuTriggerData]="{ archivo: archivo, categoria: categoria }">
+              <mat-icon>more_vert</mat-icon>
+            </button>
           </td>
         </ng-container>
 
@@ -132,3 +107,31 @@
     </mat-tab>
   </mat-tab-group>
 </section>
+
+<!-- Menú desplegable de acciones -->
+<mat-menu #menuAcciones="matMenu">
+  <ng-template matMenuContent let-archivo="archivo" let-categoria="categoria">
+    <div class="acciones-botones p-2 d-flex flex-column align-items-start">
+
+      <!-- Descargar -->
+      <button mat-button color="primary" (click)="descargarArchivo(archivo)">
+        <mat-icon class="me-1">download</mat-icon>
+        <span class="hover-underline">Descargar</span>
+      </button>
+
+      <!-- Reemplazar -->
+      <label>
+        <input type="file" hidden (change)="actualizarArchivo($event, archivo)">
+        <button mat-button color="accent">
+          <mat-icon class="me-1">edit</mat-icon> Reemplazar
+        </button>
+      </label>
+
+      <!-- Eliminar -->
+      <button mat-button color="warn" (click)="pedirConfirmacion(archivo.nombre, categoria)">
+        <mat-icon class="me-1">delete</mat-icon> Eliminar
+      </button>
+
+    </div>
+  </ng-template>
+</mat-menu>

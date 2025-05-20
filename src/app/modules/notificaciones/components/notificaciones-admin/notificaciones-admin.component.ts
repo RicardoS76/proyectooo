@@ -9,6 +9,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { Notificacion } from '../../../../models/notificacion.model';
 import { NotificacionesService } from '../../../../services/notificaciones.service';
@@ -29,7 +30,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatTableModule,
     MatTabsModule,
     MatPaginatorModule,
-    MatIconModule
+    MatIconModule,
+    MatMenuModule
   ],
   animations: [
     trigger('fadeInOut', [

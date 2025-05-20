@@ -133,3 +133,40 @@ mat-card h5 {
   padding: 1rem;
   min-height: 200px;
 }
+
+/* ==== BOTONES DE ACCIÓN DE FORMULARIO ==== */
+.col-12.text-end.mt-3 {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+
+  button[mat-flat-button],
+  button[mat-button] {
+    font-size: 0.88rem;
+    padding: 0.45rem 1.1rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  }
+
+  button[mat-flat-button] {
+    background-color: #1976d2;
+    color: white;
+
+    &:hover {
+      background-color: #125ea2;
+    }
+  }
+
+  button[mat-button][color="warn"] {
+    color: #d32f2f;
+
+    &:hover {
+      background-color: rgba(211, 47, 47, 0.08);
+    }
+  }
+}
